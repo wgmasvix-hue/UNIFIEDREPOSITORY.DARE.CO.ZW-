@@ -1,0 +1,169 @@
+<div class="dare-home">
+
+  <ds-dare-heritage-carousel></ds-dare-heritage-carousel>
+
+  <section class="dare-discovery">
+    <div class="dare-discovery-inner">
+
+      <div class="dare-zimbabwe-accent">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="dare-eyebrow">
+        KNOWLEDGE FOR A BRIGHTER ZIMBABWE
+      </div>
+
+      <h1>
+        Research, publishing,<br />
+        AI and tools <span>in one place</span>
+      </h1>
+
+      <p class="dare-hero-text">
+        Discover, share and preserve Zimbabwe's and Africa's
+        knowledge for a better tomorrow.
+      </p>
+
+      <div class="dare-search">
+        <ds-search-form></ds-search-form>
+      </div>
+
+      <div class="dare-research-tabs" role="navigation"
+           aria-label="DARE research categories">
+        <a routerLink="/search" [queryParams]="{query: 'Zimbabwe'}">
+          <span class="dare-tab-icon">◈</span>
+          Zimbabwe
+        </a>
+
+        <a routerLink="/search" [queryParams]="{query: 'Higher Education'}">
+          <span class="dare-tab-icon">◆</span>
+          Higher Education
+        </a>
+
+        <a routerLink="/search" [queryParams]="{query: 'Research Data'}">
+          <span class="dare-tab-icon">▥</span>
+          Research Data
+        </a>
+      </div>
+
+      <div class="dare-popular">
+        <strong>Popular research</strong>
+
+        <a routerLink="/search"
+           [queryParams]="{query: 'climate change'}">
+          Climate Change
+        </a>
+
+        <a routerLink="/search"
+           [queryParams]="{query: 'agriculture'}">
+          Agriculture
+        </a>
+
+        <a routerLink="/search"
+           [queryParams]="{query: 'public health'}">
+          Public Health
+        </a>
+
+        <a routerLink="/search"
+           [queryParams]="{query: 'education'}">
+          Education
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="dare-services">
+    <div class="dare-section-heading">
+      <span>THE DARE ECOSYSTEM</span>
+      <h2>Research, publishing, AI and tools in one place</h2>
+    </div>
+
+    <div class="dare-service-grid">
+
+      <a class="dare-service-card" routerLink="/community-list">
+        <div class="dare-icon">🔎</div>
+        <h3>Research</h3>
+        <p>
+          Discover research publications, theses, datasets and reports
+          from Zimbabwe and Africa.
+        </p>
+      </a>
+
+      <a class="dare-service-card" routerLink="/login">
+        <div class="dare-icon">📤</div>
+        <h3>Publish Research</h3>
+        <p>
+          Give researchers a pathway to submit and openly share their
+          research through DARE.
+        </p>
+      </a>
+
+      <a class="dare-service-card" href="https://afriva.dare.co.zw" target="_blank" rel="noopener">
+        <div class="dare-icon">🧠</div>
+        <h3>AFRIVA AI</h3>
+        <p>
+          Interact with research using AI, explore documents and turn
+          research into something you can ask questions about.
+        </p>
+      </a>
+
+      <a class="dare-service-card" href="#dare-tools">
+        <div class="dare-icon">🧰</div>
+        <h3>DARE Tools</h3>
+        <p>
+          Access applications and digital tools built for researchers,
+          students, institutions and African users.
+        </p>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="dare-topics" id="dare-tools">
+    <div class="dare-section-heading">
+      <span>EXPLORE</span>
+      <h2>Research topics</h2>
+    </div>
+
+    <div class="dare-topic-grid">
+      <a routerLink="/search">Agriculture &amp; Food Security</a>
+      <a routerLink="/search">Health &amp; Medicine</a>
+      <a routerLink="/search">Education</a>
+      <a routerLink="/search">AI &amp; Computer Science</a>
+      <a routerLink="/search">Engineering &amp; Technology</a>
+      <a routerLink="/search">Mining &amp; Minerals</a>
+      <a routerLink="/search">Climate &amp; Environment</a>
+      <a routerLink="/search">Economics &amp; Finance</a>
+      <a routerLink="/search">Law &amp; Governance</a>
+      <a routerLink="/search">Social Sciences</a>
+      <a routerLink="/search">Humanities &amp; Culture</a>
+      <a routerLink="/search">Indigenous Knowledge</a>
+    </div>
+  </section>
+
+  <section class="dare-librarian">
+    <div>
+      <div class="dare-eyebrow">COMING TO DARE</div>
+      <h2>Meet the DARE Librarian</h2>
+      <p>
+        An AI-powered guide that will help everyone discover research,
+        navigate DARE, publish work and find the right tools and resources.
+      </p>
+    </div>
+
+    <div class="dare-librarian-badge">
+      <span>🤖</span>
+      <strong>DARE Librarian</strong>
+      <small>AI research guide</small>
+    </div>
+  </section>
+
+  <section class="dare-final-cta">
+    <h2>Have research to share?</h2>
+    <p>Join the open research ecosystem and make your work discoverable.</p>
+    <a class="dare-primary" routerLink="/login">Start Publishing</a>
+  </section>
+
+</div>

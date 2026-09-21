@@ -1,0 +1,70 @@
+@import '../../../styles/_variables.scss';
+
+/*
+ * DARE UnifiedRepository
+ * Global DARE visual identity
+ *
+ * Zimbabwe-inspired:
+ * - Deep navy: research, knowledge, trust
+ * - Teal: technology, discovery, progress
+ * - Green: Zimbabwe landscape and growth
+ * - Gold: heritage, achievement and Zimbabwean warmth
+ */
+
+/* Typography */
+$font-family-sans-serif:
+  Inter,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial,
+  "Noto Sans",
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol",
+  "Noto Color Emoji";
+
+/* Core DARE palette */
+$blue:   #071b33 !default;
+$green:  #16856f !default;
+$cyan:   #0d6b62 !default;
+$yellow: #e5b93f !default;
+$red:    #c94b45 !default;
+
+$gray-900: #172033 !default;
+$gray-700: #475467 !default;
+$gray-100: #f8fafc !default;
+
+/* Semantic Bootstrap colours */
+$primary:   $blue !default;
+$secondary: $gray-700 !default;
+$success:   $green !default;
+$info:      $cyan !default;
+$warning:   $yellow !default;
+$danger:    $red !default;
+$light:     $gray-100 !default;
+$dark:      #061426 !default;
+
+/* Links */
+$link-color: $cyan !default;
+
+/* DARE semantic colours */
+$theme-custom-semantic-colors: (
+  dare-navy: #071b33,
+  dare-navy-light: #0b3154,
+  dare-teal: #0d6b62,
+  dare-teal-light: #16856f,
+  dare-green: #2f8f46,
+  dare-gold: #e5b93f,
+  dare-red: #c94b45,
+  dare-surface: #ffffff,
+  dare-background: #f8fafc,
+  dare-text: #172033,
+  dare-muted: #667085,
+  dare-border: #e4e7ec
+);
+
+$theme-colors: map-merge($theme-colors, $theme-custom-semantic-colors);

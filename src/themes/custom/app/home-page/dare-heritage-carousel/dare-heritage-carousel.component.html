@@ -1,0 +1,110 @@
+<section
+  class="dare-heritage-carousel"
+  aria-label="Zimbabwe heritage and places"
+>
+  <div class="dare-heritage-slides">
+    @for (slide of slides; track slide.title; let i = $index) {
+      <article
+        class="dare-heritage-slide"
+        [class.is-active]="i === activeIndex"
+        [attr.aria-hidden]="i !== activeIndex"
+      >
+        <img
+          class="dare-heritage-image"
+          [src]="slide.image"
+          [alt]="slide.title + ', Zimbabwe'"
+          [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+          [attr.fetchpriority]="i === 0 ? 'high' : 'auto'"
+        />
+
+        <div class="dare-heritage-overlay"></div>
+
+        @if (i === activeIndex) {
+          <div class="dare-heritage-content">
+            <div class="dare-heritage-kicker">
+              <span class="kicker-line"></span>
+              THE AFRICAN RESEARCH GATEWAY
+            </div>
+
+            <h1>{{ slide.title }}</h1>
+
+            <div class="dare-heritage-location">
+              <span aria-hidden="true">◈</span>
+              {{ slide.location }}
+            </div>
+
+            <p>{{ slide.description }}</p>
+
+            <a
+              class="dare-heritage-cta"
+              routerLink="/search"
+              [queryParams]="{ query: slide.searchQuery }"
+            >
+              <span>Explore Research</span>
+              <span class="cta-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        }
+      </article>
+    }
+  </div>
+
+  <div class="dare-carousel-controls" aria-label="Carousel controls">
+    <button
+      class="dare-carousel-control"
+      type="button"
+      aria-label="Previous heritage site"
+      (click)="previous()"
+    >
+      <span aria-hidden="true">←</span>
+    </button>
+
+    <button
+      class="dare-carousel-control"
+      type="button"
+      aria-label="Next heritage site"
+      (click)="next()"
+    >
+      <span aria-hidden="true">→</span>
+    </button>
+  </div>
+
+  <div class="dare-carousel-bottom">
+    <div class="dare-carousel-counter" aria-live="polite">
+      <strong>{{ (activeIndex + 1).toString().padStart(2, '0') }}</strong>
+      <span>/ {{ slides.length.toString().padStart(2, '0') }}</span>
+    </div>
+
+    <div
+      class="dare-carousel-indicators"
+      role="tablist"
+      aria-label="Choose heritage site"
+    >
+      @for (slide of slides; track slide.title; let i = $index) {
+        <button
+          type="button"
+          role="tab"
+          [class.is-active]="i === activeIndex"
+          [attr.aria-label]="'Show ' + slide.title"
+          [attr.aria-selected]="i === activeIndex"
+          (click)="goTo(i)"
+        >
+          <span></span>
+        </button>
+      }
+    </div>
+
+    <button
+      class="dare-carousel-pause"
+      type="button"
+      [attr.aria-label]="isPaused ? 'Resume slideshow' : 'Pause slideshow'"
+      (click)="isPaused ? resume() : pause()"
+    >
+      @if (isPaused) {
+        <span aria-hidden="true">▶</span>
+      } @else {
+        <span aria-hidden="true">Ⅱ</span>
+      }
+    </button>
+  </div>
+</section>

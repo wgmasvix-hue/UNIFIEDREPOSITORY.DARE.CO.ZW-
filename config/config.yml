@@ -1,0 +1,5 @@
+rest:
+  ssl: true
+  host: unifiedrepository.dare.co.zw
+  port: 443
+  nameSpace: /server

@@ -1,0 +1,160 @@
+.dare-header {
+  background: linear-gradient(135deg, #061b33 0%, #073c68 55%, #075f59 100%);
+  border-bottom: 0;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  .container {
+    min-height: 104px;
+  }
+}
+
+.dare-header > .container > .d-flex {
+  min-height: 104px;
+}
+
+.dare-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  max-width: 390px;
+  padding: 0;
+  margin-right: 28px;
+}
+
+.dare-logo {
+  display: block;
+  width: 320px;
+  height: auto;
+  max-height: 88px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.dare-header .navbar {
+  min-height: 82px;
+  background: transparent;
+}
+
+.dare-header .navbar-brand {
+  text-decoration: none;
+}
+
+.dare-header .navbar-brand:focus {
+  outline: 2px solid #35c5b5;
+  outline-offset: 5px;
+}
+
+/* Search area */
+.dare-header ds-search-navbar {
+  margin-right: 12px;
+}
+
+.dare-header ds-search-navbar ::ng-deep .search-navbar {
+  background: transparent;
+}
+
+/* Header controls */
+.dare-header [role="toolbar"] {
+  display: flex;
+  align-items: center;
+}
+
+.dare-header [role="toolbar"] > * {
+  margin-left: 4px;
+}
+
+/* Make header controls work visually on the dark background */
+.dare-header ::ng-deep .nav-link,
+.dare-header ::ng-deep button,
+.dare-header ::ng-deep .dropdown-toggle {
+  color: #ffffff;
+}
+
+.dare-header ::ng-deep .nav-link:hover,
+.dare-header ::ng-deep button:hover,
+.dare-header ::ng-deep .dropdown-toggle:hover {
+  color: #7de3d7;
+}
+
+.dare-header ::ng-deep .navbar-toggler {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.dare-header ::ng-deep .toggler-icon {
+  color: #ffffff;
+}
+
+/* Search input */
+.dare-header ::ng-deep input {
+  border-radius: 6px;
+}
+
+.dare-header ::ng-deep .search-button,
+.dare-header ::ng-deep button[type="submit"] {
+  border-radius: 0 6px 6px 0;
+}
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .dare-header .container,
+  .dare-header > .container > .d-flex {
+    min-height: 90px;
+  }
+
+  .dare-logo {
+    width: 250px;
+    max-height: 76px;
+  }
+
+  .dare-brand {
+    max-width: 290px;
+    margin-right: 12px;
+  }
+
+  .dare-header .navbar {
+    min-height: 72px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .dare-header .container,
+  .dare-header > .container > .d-flex {
+    min-height: 76px;
+  }
+
+  .dare-logo {
+    width: 205px;
+    max-height: 65px;
+  }
+
+  .dare-brand {
+    max-width: 220px;
+    margin-right: 6px;
+  }
+
+  .dare-header .navbar {
+    min-height: 64px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 575.98px) {
+  .dare-header .container,
+  .dare-header > .container > .d-flex {
+    min-height: 68px;
+  }
+
+  .dare-logo {
+    width: 175px;
+    max-height: 58px;
+  }
+
+  .dare-brand {
+    max-width: 185px;
+    margin-right: 3px;
+  }
+}
