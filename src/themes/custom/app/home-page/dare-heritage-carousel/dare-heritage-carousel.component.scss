@@ -1,0 +1,367 @@
+.dare-heritage-carousel {
+  position: relative;
+  height: clamp(580px, 76vh, 820px);
+  min-height: 560px;
+  overflow: hidden;
+  background: #071b33;
+  isolation: isolate;
+  color: #fff;
+}
+
+.dare-heritage-slides,
+.dare-heritage-slide {
+  position: absolute;
+  inset: 0;
+}
+
+.dare-heritage-slide {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 0;
+  transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
+}
+
+.dare-heritage-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.dare-heritage-image {
+  position: absolute;
+  inset: -2%;
+  width: 104%;
+  height: 104%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+}
+
+.dare-heritage-slide.is-active .dare-heritage-image {
+  animation: dare-heritage-ken-burns 8s ease-out forwards;
+}
+
+.dare-heritage-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 13, 25, 0.92) 0%,
+      rgba(3, 13, 25, 0.72) 28%,
+      rgba(3, 13, 25, 0.38) 58%,
+      rgba(3, 13, 25, 0.08) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(3, 13, 25, 0.72) 0%,
+      rgba(3, 13, 25, 0.08) 42%,
+      transparent 70%
+    );
+}
+
+.dare-heritage-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(760px, calc(100% - 48px));
+  height: 100%;
+  margin-left: clamp(6%, 10vw, 13%);
+  padding: 80px 0 120px;
+}
+
+.dare-heritage-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.kicker-line {
+  width: 34px;
+  height: 2px;
+  background: #e5b93f;
+}
+
+.dare-heritage-content h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.6rem, 7vw, 7rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  text-shadow: 0 5px 30px rgba(0, 0, 0, 0.25);
+}
+
+.dare-heritage-location {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 26px;
+  color: #e5b93f;
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.dare-heritage-location span {
+  font-size: 0.8rem;
+}
+
+.dare-heritage-content p {
+  max-width: 640px;
+  margin: 16px 0 32px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  line-height: 1.7;
+}
+
+.dare-heritage-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  width: fit-content;
+  min-width: 190px;
+  padding: 15px 18px 15px 21px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 5px;
+  background: #fff;
+  color: #071b33;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    gap 0.25s ease;
+}
+
+.dare-heritage-cta:hover,
+.dare-heritage-cta:focus-visible {
+  color: #071b33;
+  text-decoration: none;
+  transform: translateY(-3px);
+  gap: 34px;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.3);
+}
+
+.cta-arrow {
+  font-size: 1.25rem;
+}
+
+.dare-carousel-controls {
+  position: absolute;
+  right: clamp(28px, 5vw, 80px);
+  bottom: 106px;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+}
+
+.dare-carousel-control,
+.dare-carousel-pause {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(4, 16, 30, 0.28);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.dare-carousel-control {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 1.05rem;
+}
+
+.dare-carousel-control:hover,
+.dare-carousel-control:focus-visible,
+.dare-carousel-pause:hover,
+.dare-carousel-pause:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.dare-carousel-bottom {
+  position: absolute;
+  right: clamp(28px, 5vw, 80px);
+  bottom: 32px;
+  left: clamp(28px, 10vw, 13%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.dare-carousel-counter {
+  min-width: 52px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.dare-carousel-counter strong {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.dare-carousel-indicators {
+  display: flex;
+  flex: 1;
+  gap: 7px;
+}
+
+.dare-carousel-indicators button {
+  position: relative;
+  width: 100%;
+  max-width: 92px;
+  height: 4px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.24);
+  cursor: pointer;
+}
+
+.dare-carousel-indicators button span {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: #e5b93f;
+}
+
+.dare-carousel-indicators button.is-active span {
+  animation: dare-carousel-progress 8s linear forwards;
+}
+
+.dare-carousel-pause {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+}
+
+@keyframes dare-heritage-ken-burns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes dare-carousel-progress {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .dare-heritage-carousel {
+    height: 680px;
+    min-height: 620px;
+  }
+
+  .dare-heritage-overlay {
+    background:
+      linear-gradient(
+        0deg,
+        rgba(3, 13, 25, 0.94) 0%,
+        rgba(3, 13, 25, 0.62) 43%,
+        rgba(3, 13, 25, 0.18) 100%
+      );
+  }
+
+  .dare-heritage-content {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    padding: 60px 0 125px;
+    justify-content: flex-end;
+  }
+
+  .dare-heritage-kicker {
+    margin-bottom: 16px;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+
+  .dare-heritage-content h1 {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .dare-heritage-content p {
+    margin: 14px 0 24px;
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+
+  .dare-carousel-controls {
+    right: 20px;
+    bottom: 92px;
+  }
+
+  .dare-carousel-control {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dare-carousel-bottom {
+    right: 20px;
+    bottom: 26px;
+    left: 20px;
+    gap: 12px;
+  }
+
+  .dare-carousel-counter {
+    min-width: 42px;
+  }
+
+  .dare-carousel-indicators {
+    gap: 4px;
+  }
+
+  .dare-carousel-pause {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dare-heritage-slide,
+  .dare-heritage-image,
+  .dare-heritage-cta,
+  .dare-carousel-control,
+  .dare-carousel-pause {
+    transition: none;
+    animation: none !important;
+  }
+
+  .dare-carousel-indicators button.is-active span {
+    transform: translateX(0);
+  }
+}

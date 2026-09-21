@@ -1,0 +1,12 @@
+/*
+ * DARE mobile layout
+ *
+ * The DSpace admin sidebar is fixed/overlayed on mobile.
+ * Do not reserve its collapsed desktop width in the public page layout.
+ */
+
+@media (max-width: 767.98px) {
+  .outer-wrapper {
+    padding-left: 0 !important;
+  }
+}

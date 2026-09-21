@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#061426"/>
+      <stop offset="45%" stop-color="#17486a"/>
+      <stop offset="72%" stop-color="#d47d45"/>
+      <stop offset="100%" stop-color="#e5b93f"/>
+    </linearGradient>
+
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d9f4f1"/>
+      <stop offset="50%" stop-color="#6dc8c2"/>
+      <stop offset="100%" stop-color="#0d6b62"/>
+    </linearGradient>
+
+    <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+  </defs>
+
+  <!-- Zimbabwe sunset sky -->
+  <rect width="1920" height="900" fill="url(#sky)"/>
+
+  <!-- Sun -->
+  <circle cx="1450" cy="235" r="105" fill="#f7d978" opacity=".92"/>
+  <circle cx="1450" cy="235" r="155" fill="#f7d978" opacity=".18" filter="url(#blur)"/>
+
+  <!-- Distant Zimbabwean hills -->
+  <path
+    d="M0 470
+       C170 390 290 410 430 455
+       C590 505 690 385 840 410
+       C990 435 1060 500 1190 450
+       C1330 395 1450 350 1600 425
+       C1750 500 1820 430 1920 390
+       L1920 900 L0 900 Z"
+    fill="#174c43"
+    opacity=".78"/>
+
+  <path
+    d="M0 535
+       C190 455 330 490 500 540
+       C650 585 770 470 920 505
+       C1080 540 1170 570 1310 495
+       C1470 410 1600 455 1740 520
+       C1830 560 1880 525 1920 500
+       L1920 900 L0 900 Z"
+    fill="#0b3154"
+    opacity=".9"/>
+
+  <!-- Victoria Falls-inspired cliffs -->
+  <path
+    d="M455 480
+       L690 455
+       L805 485
+       L925 455
+       L1045 478
+       L1165 452
+       L1290 485
+       L1430 465
+       L1510 520
+       L1510 690
+       L440 690 Z"
+    fill="#102d31"/>
+
+  <!-- Waterfall -->
+  <path
+    d="M610 480
+       C650 505 675 530 690 575
+       C700 625 685 700 710 760
+       L780 760
+       C760 690 775 620 805 570
+       C825 535 850 505 880 478 Z"
+    fill="url(#water)"/>
+
+  <path
+    d="M905 478
+       C940 520 950 560 945 610
+       C940 665 955 715 945 775
+       L1015 775
+       C1000 710 1015 650 1040 600
+       C1060 555 1090 515 1125 480 Z"
+    fill="url(#water)"
+    opacity=".9"/>
+
+  <path
+    d="M1160 475
+       C1190 520 1200 565 1195 620
+       C1190 675 1210 720 1200 775
+       L1270 775
+       C1250 705 1270 645 1295 590
+       C1315 540 1345 510 1370 475 Z"
+    fill="url(#water)"
+    opacity=".85"/>
+
+  <!-- Falling water highlights -->
+  <path
+    d="M730 520 C750 590 735 680 750 755
+       M835 520 C850 600 830 690 845 765
+       M975 525 C990 610 975 690 990 770
+       M1230 520 C1245 610 1225 700 1245 770"
+    stroke="#ffffff"
+    stroke-width="12"
+    opacity=".38"
+    fill="none"/>
+
+  <!-- Mist rising from the falls -->
+  <ellipse
+    cx="950"
+    cy="690"
+    rx="520"
+    ry="155"
+    fill="url(#mist)"
+    opacity=".55"
+    filter="url(#blur)"/>
+
+  <!-- Foreground valley -->
+  <path
+    d="M0 680
+       C210 625 380 650 560 700
+       C720 745 850 720 1020 690
+       C1200 655 1380 680 1530 720
+       C1690 765 1810 700 1920 665
+       L1920 900 L0 900 Z"
+    fill="#061b25"/>
+
+  <!-- Acacia / Zimbabwe landscape silhouettes -->
+  <g fill="#03131b">
+    <path d="M175 735 L185 555 L198 555 L210 735 Z"/>
+    <path d="M115 580 C125 535 185 515 250 550 C270 560 285 590 270 605 C225 590 170 590 115 580 Z"/>
+    <path d="M135 540 C155 505 205 495 245 520 C260 530 270 550 255 565 C215 550 175 550 135 540 Z"/>
+
+    <path d="M1660 750 L1672 560 L1687 560 L1700 750 Z"/>
+    <path d="M1585 590 C1610 540 1680 525 1750 555 C1775 565 1795 590 1780 610 C1715 590 1650 590 1585 590 Z"/>
+    <path d="M1620 545 C1645 505 1710 495 1755 525 C1770 535 1780 555 1765 570 C1715 550 1665 550 1620 545 Z"/>
+  </g>
+
+  <!-- Foreground grasses -->
+  <g stroke="#16856f" stroke-width="7" opacity=".7">
+    <path d="M40 900 Q55 820 75 770"/>
+    <path d="M90 900 Q100 825 130 785"/>
+    <path d="M180 900 Q175 825 200 780"/>
+    <path d="M1760 900 Q1750 820 1715 770"/>
+    <path d="M1830 900 Q1820 825 1785 790"/>
+    <path d="M1890 900 Q1880 835 1850 805"/>
+  </g>
+
+  <!-- Subtle DARE Zimbabwe accent -->
+  <rect x="0" y="894" width="1920" height="6" fill="#2f8f46"/>
+  <rect x="640" y="894" width="320" height="6" fill="#e5b93f"/>
+  <rect x="960" y="894" width="320" height="6" fill="#c94b45"/>
+</svg>
