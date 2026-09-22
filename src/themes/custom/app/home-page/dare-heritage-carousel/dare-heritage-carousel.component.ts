@@ -1,4 +1,6 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 interface HeritageSlide {
@@ -16,6 +18,7 @@ interface HeritageSlide {
   imports: [RouterLink],
 })
 export class DareHeritageCarouselComponent implements OnInit, OnDestroy {
+  private readonly platformId = inject(PLATFORM_ID);
   slides: HeritageSlide[] = [
     {
       title: 'Great Zimbabwe',
@@ -81,7 +84,11 @@ export class DareHeritageCarouselComponent implements OnInit, OnDestroy {
   private timer?: ReturnType<typeof setInterval>;
 
   ngOnInit(): void {
-    this.startTimer();
+    // Never start the carousel timer during Angular SSR.
+    // A repeating timer prevents Angular SSR from becoming stable.
+    if (isPlatformBrowser(this.platformId)) {
+      this.startTimer();
+    }
   }
 
   ngOnDestroy(): void {
@@ -89,6 +96,10 @@ export class DareHeritageCarouselComponent implements OnInit, OnDestroy {
   }
 
   private startTimer(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     this.stopTimer();
 
     if (this.isPaused) {
