@@ -1,0 +1,28 @@
+<section class="dare-stats" aria-labelledby="dare-stats-heading">
+  <div class="dare-container">
+    <h2 id="dare-stats-heading" class="visually-hidden">Repository statistics</h2>
+
+    <dl class="dare-stats__grid">
+      @for (tile of tiles; track tile.key) {
+        <div class="dare-stats__tile">
+          <dt class="dare-stats__label">
+            {{ tile.label }}
+            <span class="dare-stats__note">{{ tile.note }}</span>
+          </dt>
+          <dd
+            class="dare-stats__value"
+            [attr.aria-busy]="loading"
+            [class.dare-stats__value--pending]="!stats"
+          >
+            {{ stats ? format(stats[tile.key]) : '—' }}
+          </dd>
+        </div>
+      }
+    </dl>
+
+    <p class="dare-stats__source">
+      Figures are read live from the DARE repository index
+      (<code>/server/api</code>) and update automatically.
+    </p>
+  </div>
+</section>

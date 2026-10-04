@@ -1,0 +1,87 @@
+
+// --- Item feed --------------------------------------------------------------
+// Hairline-separated rows. Type and whitespace carry the hierarchy; there are
+// no cards, no shadows, and no imagery competing with the title.
+
+.dare-latest__heading {
+  margin: 0 0 var(--dare-spacing-4);
+  padding-bottom: var(--dare-spacing-3);
+  border-bottom: 2px solid var(--dare-text-inverse, #0d1b2a);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-bold);
+  letter-spacing: var(--dare-tracking-wider);
+  text-transform: uppercase;
+}
+
+// Inside the inverse (African knowledge) band the rule must be light.
+:host-context(.dare-section--inverse) .dare-latest__heading {
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.dare-latest__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-latest__item {
+  padding-block: var(--dare-spacing-4);
+  border-top: 1px solid var(--dare-border);
+
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+}
+
+:host-context(.dare-section--inverse) .dare-latest__item {
+  border-top-color: rgba(255, 255, 255, 0.18);
+}
+
+.dare-latest__link {
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    .dare-latest__title {
+      color: var(--dare-accent);
+      text-decoration: underline;
+      text-underline-offset: 0.16em;
+    }
+  }
+}
+
+.dare-latest__title {
+  display: block;
+  font-family: var(--dare-heading);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+  font-weight: var(--dare-weight-semibold);
+  line-height: 1.3;
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-text);
+  transition: color var(--dare-dur) var(--dare-ease);
+}
+
+:host-context(.dare-section--inverse) .dare-latest__title {
+  color: var(--dare-text-inverse);
+}
+
+.dare-latest__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem var(--dare-spacing-3);
+  margin: var(--dare-spacing-2) 0 0;
+  font-size: var(--dare-small);
+  color: var(--dare-muted);
+}
+
+:host-context(.dare-section--inverse) .dare-latest__meta {
+  color: var(--dare-text-inverse-muted);
+}
+
+.dare-latest__status {
+  margin: 0;
+  font-size: var(--dare-small);
+  color: var(--dare-muted);
+}

@@ -50,9 +50,9 @@
                 "bundleName": "base-theme"
               },
               {
-                "input": "src/themes/custom/styles/theme.scss",
+                "input": "src/themes/dare/styles/theme.scss",
                 "inject": false,
-                "bundleName": "custom-theme"
+                "bundleName": "dare-theme"
               },
               {
                 "input": "src/themes/dspace/styles/theme.scss",

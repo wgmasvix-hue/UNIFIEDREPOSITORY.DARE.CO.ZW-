@@ -1,0 +1,138 @@
+// DARE primary navigation ----------------------------------------------------
+// A light band under the dark masthead. Large type, hairline rules, and
+// generous horizontal space: the goal is orientation, not density.
+
+.dare-nav {
+  background: var(--dare-bg);
+  border-bottom: 1px solid var(--dare-border);
+}
+
+.dare-nav__inner {
+  width: 100%;
+  max-width: var(--dare-grid-max);
+  margin-inline: auto;
+  padding-inline: var(--dare-gutter);
+}
+
+// --- Primary destinations ---------------------------------------------------
+.dare-nav__primary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-nav__primary-item {
+  display: flex;
+
+  // Hairline separators give structure without heavy borders.
+  &:not(:first-child) {
+    border-left: 1px solid var(--dare-border);
+  }
+}
+
+.dare-nav__primary-item .dare-nav-link {
+  padding-inline: var(--dare-spacing-5);
+  border-bottom: 0;
+
+  &:first-child {
+    padding-left: 0;
+  }
+}
+
+// --- DSpace-managed sections ------------------------------------------------
+.dare-nav__section-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dare-spacing-2) var(--dare-spacing-4);
+  padding-block: var(--dare-spacing-2);
+  border-top: 1px solid var(--dare-border-subtle);
+
+  ::ng-deep .nav-link {
+    font-size: var(--dare-small);
+    font-weight: var(--dare-weight-medium);
+    color: var(--dare-text-secondary);
+    text-decoration: none;
+    padding: var(--dare-spacing-1) 0;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--dare-accent);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+  }
+}
+
+// --- Mobile auth -------------------------------------------------------------
+// The auth menu lives in the masthead on wide screens and is duplicated into
+// the collapsible navigation here on narrow ones. Exactly one copy is ever
+// visible, so there is never a duplicate tab stop for keyboard users.
+.dare-nav__auth {
+  display: none;
+}
+
+@include media-breakpoint-down(md) {
+  .dare-nav__auth {
+    display: block;
+    padding-block: var(--dare-spacing-2);
+
+    ::ng-deep .nav-link {
+      color: var(--dare-text-secondary);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--dare-accent);
+      }
+    }
+  }
+}
+
+// --- Responsive -------------------------------------------------------------
+@include media-breakpoint-down(md) {
+  // DSpace collapses the primary navigation on small screens and reveals it via
+  // the masthead Menu button, which toggles the `open` class.
+  //
+  // The upstream implementation relies on the Bootstrap `.navbar` class to hide
+  // the collapsed panel. This theme replaces that class with `.dare-nav`, so
+  // without an explicit hidden state the collapsed element measured 1px tall
+  // while its 345px-tall children kept painting over the hero. An explicit
+  // display toggle makes the collapsed state real.
+  .dare-nav {
+    display: none;
+  }
+
+  .dare-nav.open {
+    display: block;
+  }
+
+  .dare-nav__primary-item .dare-nav-link {
+    padding-inline: var(--dare-spacing-4);
+    font-size: 1rem;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  // On phones the destinations stack into a scroll-free vertical list.
+  .dare-nav__primary {
+    flex-direction: column;
+  }
+
+  .dare-nav__primary-item {
+    border-left: 0;
+
+    &:not(:first-child) {
+      border-top: 1px solid var(--dare-border-subtle);
+    }
+
+    .dare-nav-link {
+      padding: var(--dare-spacing-3) 0;
+      font-size: 1.05rem;
+      width: 100%;
+    }
+  }
+}

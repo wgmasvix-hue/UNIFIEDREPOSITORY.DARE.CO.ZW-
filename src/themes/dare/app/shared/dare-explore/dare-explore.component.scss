@@ -1,0 +1,92 @@
+.dare-explore__list {
+  display: grid;
+  // Two editorial columns on desktop; the divider becomes a horizontal rule.
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: var(--dare-spacing-7) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-explore__item {
+  border-top: 1px solid var(--dare-border);
+
+  // Left column gets a right divider to create the grid structure.
+  &:nth-child(odd) {
+    padding-right: var(--dare-grid-gap);
+    border-right: 1px solid var(--dare-border);
+  }
+
+  &:nth-child(even) {
+    padding-left: var(--dare-grid-gap);
+  }
+
+  // The two items on the final row close the block.
+  &:nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--dare-border);
+  }
+}
+
+.dare-explore__link {
+  display: block;
+  padding-block: var(--dare-spacing-5);
+  text-decoration: none;
+  color: inherit;
+
+  &:hover,
+  &:focus-visible {
+    .dare-explore__title {
+      color: var(--dare-accent);
+    }
+
+    .dare-explore__arrow {
+      transform: translateX(0.3em);
+    }
+  }
+}
+
+.dare-explore__title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-family: var(--dare-heading);
+  font-size: clamp(1.35rem, 1.05rem + 1.1vw, 2rem);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-tight);
+  line-height: 1.15;
+  color: var(--dare-text);
+  transition: color var(--dare-dur) var(--dare-ease);
+}
+
+.dare-explore__arrow {
+  display: inline-block;
+  font-size: 0.62em;
+  color: var(--dare-accent);
+  transform: translateX(0);
+  transition: transform var(--dare-dur) var(--dare-ease);
+}
+
+.dare-explore__blurb {
+  display: block;
+  margin-top: var(--dare-spacing-2);
+  max-width: 46ch;
+  font-size: var(--dare-small);
+  line-height: 1.5;
+  color: var(--dare-muted);
+}
+
+@include media-breakpoint-down(md) {
+  .dare-explore__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dare-explore__item {
+    padding-inline: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--dare-border);
+  }
+
+  .dare-explore__item:last-child {
+    border-bottom: 0;
+  }
+}

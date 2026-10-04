@@ -1,0 +1,431 @@
+// =============================================================================
+// DARE Repository — Global Editorial Base
+// =============================================================================
+// Deliberately restrained: typography, rules and whitespace do the work.
+// Component-level styles stay in their own files; this layer only establishes
+// primitives every DARE page relies on.
+// =============================================================================
+
+html {
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: var(--dare-body);
+  font-size: 1rem;
+  line-height: var(--dare-leading-body);
+  color: var(--dare-text);
+  background-color: var(--dare-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // Institutional sites read better with a slightly tighter default.
+  font-feature-settings: "kern", "liga", "calt";
+}
+
+// --- Focus -----------------------------------------------------------------
+// Never remove focus rings; only replace them with something clearly visible.
+:focus-visible {
+  outline: var(--dare-focus-ring);
+  outline-offset: var(--dare-focus-offset);
+}
+
+// DSpace/ng-bootstrap occasionally resets outline. Restore visibility.
+a:focus,
+button:focus,
+[tabindex]:focus {
+  &:focus-visible {
+    outline: var(--dare-focus-ring);
+    outline-offset: var(--dare-focus-offset);
+  }
+}
+
+// --- Skip link -------------------------------------------------------------
+.skip-link {
+  position: absolute;
+  left: var(--dare-spacing-4);
+  top: -100%;
+  z-index: 2000;
+  padding: var(--dare-spacing-3) var(--dare-spacing-5);
+  background: var(--dare-navy);
+  color: var(--dare-text-inverse);
+  font-weight: var(--dare-weight-semibold);
+  text-decoration: none;
+  transition: top var(--dare-dur) var(--dare-ease);
+
+  &:focus {
+    top: var(--dare-spacing-4);
+  }
+}
+
+// --- Layout primitives -----------------------------------------------------
+.dare-container {
+  width: 100%;
+  max-width: var(--dare-grid-max);
+  margin-inline: auto;
+  padding-inline: var(--dare-gutter);
+}
+
+.dare-container--wide {
+  max-width: 1600px;
+}
+
+.dare-section {
+  padding-block: var(--dare-section-y);
+}
+
+.dare-section--tight {
+  padding-block: calc(var(--dare-section-y) * 0.6);
+}
+
+.dare-section--inverse {
+  background: var(--dare-navy);
+  color: var(--dare-text-inverse);
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--dare-text-inverse);
+  }
+
+  a {
+    color: var(--dare-text-inverse);
+  }
+}
+
+.dare-section--subtle {
+  background: var(--dare-bg-subtle);
+}
+
+// A 12-column editorial grid.
+.dare-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--dare-grid-gap);
+}
+
+.dare-measure {
+  max-width: var(--dare-measure);
+}
+
+// --- Type utilities --------------------------------------------------------
+
+// Small uppercase label used above every section heading.
+.dare-eyebrow {
+  display: block;
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wider);
+  text-transform: uppercase;
+  color: var(--dare-accent);
+  margin-bottom: var(--dare-spacing-4);
+}
+
+.dare-section--inverse .dare-eyebrow {
+  color: var(--dare-accent);
+}
+
+.dare-display {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-display);
+  font-weight: var(--dare-weight-bold);
+  line-height: var(--dare-leading-tight);
+  letter-spacing: var(--dare-tracking-display);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.dare-h1 {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h1);
+  font-weight: var(--dare-weight-bold);
+  line-height: var(--dare-leading-tight);
+  letter-spacing: var(--dare-tracking-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.dare-h2 {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h2);
+  font-weight: var(--dare-weight-bold);
+  line-height: var(--dare-leading-snug);
+  letter-spacing: var(--dare-tracking-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.dare-h3 {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h3);
+  font-weight: var(--dare-weight-semibold);
+  line-height: var(--dare-leading-snug);
+  letter-spacing: var(--dare-tracking-tight);
+  margin: 0;
+}
+
+.dare-lead {
+  font-size: var(--dare-lead);
+  line-height: 1.5;
+  color: var(--dare-text-secondary);
+  max-width: 54ch;
+  margin: 0;
+}
+
+.dare-section--inverse .dare-lead {
+  color: var(--dare-text-inverse-muted);
+}
+
+.dare-muted {
+  color: var(--dare-muted);
+}
+
+// A hairline used to separate editorial bands.
+.dare-rule {
+  height: 1px;
+  background: var(--dare-border);
+  border: 0;
+  margin: 0;
+}
+
+.dare-rule--strong {
+  height: 3px;
+  background: var(--dare-navy);
+}
+
+.dare-rule--accent {
+  height: 3px;
+  width: 4rem;
+  background: var(--dare-accent);
+}
+
+// --- Links -----------------------------------------------------------------
+// Institutional underlines: visible by default, animate on hover.
+.dare-link {
+  color: var(--dare-secondary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--dare-dur) var(--dare-ease),
+    text-decoration-color var(--dare-dur) var(--dare-ease);
+
+  &:hover {
+    color: var(--dare-secondary-hover);
+    text-decoration-thickness: 2px;
+  }
+}
+
+// Large typographic navigation link ("RESEARCH ->").
+.dare-nav-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  font-family: var(--dare-heading);
+  font-size: clamp(1.1rem, 0.95rem + 0.9vw, 1.6rem);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-text);
+  text-decoration: none;
+  padding-block: var(--dare-spacing-2);
+  border-bottom: 2px solid transparent;
+  transition: color var(--dare-dur) var(--dare-ease),
+    border-color var(--dare-dur) var(--dare-ease);
+
+  .dare-nav-link__arrow {
+    font-size: 0.7em;
+    transform: translateX(0);
+    transition: transform var(--dare-dur) var(--dare-ease);
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-accent);
+    border-bottom-color: var(--dare-accent);
+  }
+
+  &:hover .dare-nav-link__arrow {
+    transform: translateX(0.25em);
+  }
+}
+
+// --- Buttons ---------------------------------------------------------------
+// Square corners, uppercase label, firm hover. Institutional, not friendly-SaaS.
+.dare-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dare-spacing-2);
+  min-height: 3rem;
+  padding: 0 var(--dare-spacing-6);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-bold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--dare-navy);
+  border-radius: var(--dare-radius);
+  background: var(--dare-navy);
+  color: var(--dare-text-inverse);
+  cursor: pointer;
+  transition: background-color var(--dare-dur) var(--dare-ease),
+    color var(--dare-dur) var(--dare-ease),
+    border-color var(--dare-dur) var(--dare-ease);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-accent);
+    border-color: var(--dare-accent);
+    color: var(--dare-accent-contrast);
+  }
+}
+
+.dare-btn--ghost {
+  background: transparent;
+  color: var(--dare-navy);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-navy);
+    border-color: var(--dare-navy);
+    color: var(--dare-text-inverse);
+  }
+}
+
+.dare-section--inverse .dare-btn--ghost {
+  color: var(--dare-text-inverse);
+  border-color: var(--dare-text-inverse);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-accent);
+    border-color: var(--dare-accent);
+    color: var(--dare-accent-contrast);
+  }
+}
+
+.dare-btn--accent {
+  background: var(--dare-accent);
+  border-color: var(--dare-accent);
+  color: var(--dare-accent-contrast);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-accent-hover);
+    border-color: var(--dare-accent-hover);
+  }
+}
+
+.dare-btn--block {
+  width: 100%;
+}
+
+// --- Data / meta line ------------------------------------------------------
+.dare-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--dare-spacing-2) var(--dare-spacing-4);
+  font-size: var(--dare-small);
+  color: var(--dare-muted);
+  margin: 0;
+}
+
+.dare-tag {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+  color: var(--dare-navy);
+  background: var(--dare-bg-subtle);
+  border: 1px solid var(--dare-border);
+  border-radius: var(--dare-radius);
+}
+
+.dare-tag--open {
+  color: var(--dare-open);
+  background: var(--dare-secondary-subtle);
+  border-color: transparent;
+}
+
+// --- Utility ---------------------------------------------------------------
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// =============================================================================
+// Narrow-viewport guards
+// =============================================================================
+// DSpace core renders long metadata values (author lists, DOIs, URIs) and a
+// horizontal breadcrumb trail. Measured on an item page at a 375px viewport,
+// these pushed the document to 453px of scrollWidth, producing a horizontal
+// scrollbar on every phone.
+//
+// The overflow is caused by flex/grid children defaulting to min-width:auto and
+// by tokens (DOIs, URIs) that refuse to break. Both are cured here rather than
+// by patching each core component, so the fix holds as DSpace core evolves.
+// Verified with Cypress assertions on scrollWidth at 320/375/390/430/768px.
+@include media-breakpoint-down(md) {
+  // Long values may break anywhere; nothing may exceed its container.
+  .dont-break-out,
+  .preserve-line-breaks,
+  .text-truncate {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+  }
+
+  // Flex children must be allowed to shrink below their content width.
+  .ds-flex-cell,
+  .ds-value-cell {
+    min-width: 0;
+  }
+
+  // The breadcrumb trail wraps instead of scrolling sideways.
+  .breadcrumb,
+  .ds-breadcrumb {
+    flex-wrap: wrap;
+    row-gap: var(--dare-spacing-1);
+  }
+
+  .breadcrumb-item,
+  .ds-breadcrumb .breadcrumb-item {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .breadcrumb-item-limiter {
+    // Keep the separator visible but stop it forcing width.
+    flex: 0 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

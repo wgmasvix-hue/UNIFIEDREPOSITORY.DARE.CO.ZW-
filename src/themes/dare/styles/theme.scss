@@ -1,0 +1,35 @@
+// =============================================================================
+// DARE Repository theme — stylesheet entry point
+// =============================================================================
+// Mirrors the DSpace theme contract exactly. Bootstrap variable overrides are
+// `!default` values, so they MUST be declared before Bootstrap is pulled in.
+// Order here is load-bearing; do not rearrange casually.
+//
+// Two design-system layers are injected after DSpace's own primitives:
+//   _dare-tokens.scss  -> the --dare-* custom properties (single source of truth)
+//   _dare-base.scss    -> global editorial primitives (type, grid, buttons, a11y)
+// =============================================================================
+
+// 1. Institutional palette overrides (must precede Bootstrap).
+@import "./_theme_sass_variable_overrides.scss";
+
+// 2. DSpace core variables + mixins.
+@import "../../../styles/_variables.scss";
+@import "../../../styles/_mixins.scss";
+
+// 3. Vendor helpers and DSpace shared custom properties.
+@import "../../../styles/helpers/font_awesome_imports.scss";
+@import "../../../styles/_vendor.scss";
+@import "../../../styles/_custom_variables.scss";
+
+// 4. DSpace -> CSS custom property bridge.
+@import "./_theme_css_variable_overrides.scss";
+@import "../../../styles/bootstrap_variables_mapping.scss";
+@import "../../../styles/_truncatable-part.component.scss";
+
+// 5. DARE design system.
+@import "./_dare-tokens.scss";
+@import "./_dare-base.scss";
+
+// 6. Theme-level global styles.
+@import "./_global-styles.scss";

@@ -1,0 +1,27 @@
+<section class="dare-explore dare-section" aria-labelledby="dare-explore-heading">
+  <div class="dare-container">
+    <span class="dare-eyebrow">Browse</span>
+    <h2 id="dare-explore-heading" class="dare-h2">
+      Explore the repository
+    </h2>
+    <hr class="dare-rule dare-rule--accent" />
+
+    <ul class="dare-explore__list">
+      @for (entry of entries; track entry.slug) {
+        <li class="dare-explore__item">
+          <a
+            class="dare-explore__link"
+            [routerLink]="['/search']"
+            [queryParams]="{ query: entry.query }"
+          >
+            <span class="dare-explore__title">
+              {{ entry.title }}
+              <span class="dare-explore__arrow" aria-hidden="true">&rarr;</span>
+            </span>
+            <span class="dare-explore__blurb">{{ entry.blurb }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

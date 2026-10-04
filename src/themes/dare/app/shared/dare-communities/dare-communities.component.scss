@@ -1,0 +1,95 @@
+.dare-communities__lead {
+  margin-top: var(--dare-spacing-4);
+}
+
+.dare-communities__status {
+  margin-top: var(--dare-spacing-6);
+  font-size: var(--dare-small);
+}
+
+.dare-communities__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: var(--dare-spacing-7) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--dare-border);
+  border-left: 1px solid var(--dare-border);
+}
+
+.dare-communities__cell {
+  border-right: 1px solid var(--dare-border);
+  border-bottom: 1px solid var(--dare-border);
+}
+
+.dare-communities__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dare-spacing-2);
+  height: 100%;
+  padding: var(--dare-spacing-5);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--dare-dur) var(--dare-ease);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-surface);
+
+    .dare-communities__name {
+      color: var(--dare-accent);
+    }
+
+    .dare-communities__cta {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.dare-communities__name {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h4);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-tight);
+  line-height: 1.25;
+  color: var(--dare-text);
+  transition: color var(--dare-dur) var(--dare-ease);
+}
+
+.dare-communities__desc {
+  font-size: var(--dare-small);
+  line-height: 1.5;
+  color: var(--dare-muted);
+}
+
+.dare-communities__cta {
+  margin-top: auto;
+  padding-top: var(--dare-spacing-2);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+  color: var(--dare-accent);
+  opacity: 0.55;
+  transform: translateX(-0.15em);
+  transition: opacity var(--dare-dur) var(--dare-ease),
+    transform var(--dare-dur) var(--dare-ease);
+}
+
+.dare-communities__all {
+  margin-top: var(--dare-spacing-5);
+}
+
+@include media-breakpoint-down(lg) {
+  .dare-communities__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dare-communities__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

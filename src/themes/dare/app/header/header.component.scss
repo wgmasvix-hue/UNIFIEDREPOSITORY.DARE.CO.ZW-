@@ -1,0 +1,170 @@
+// DARE institutional masthead -------------------------------------------------
+// Sits directly above the primary navigation. Strong and dark so the page reads
+// as an institution rather than a consumer site, while staying short enough not
+// to eat the vertical viewport on mobile.
+
+.dare-masthead {
+  background: var(--dare-navy);
+  color: var(--dare-text-inverse);
+  border-bottom: 3px solid var(--dare-accent);
+}
+
+.dare-masthead__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dare-spacing-4);
+  width: 100%;
+  max-width: var(--dare-grid-max);
+  min-height: var(--dare-header-height);
+  margin-inline: auto;
+  padding-inline: var(--dare-gutter);
+}
+
+// --- Wordmark ---------------------------------------------------------------
+.dare-masthead__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--dare-spacing-3);
+  text-decoration: none;
+  color: inherit;
+  padding-block: var(--dare-spacing-2);
+  min-width: 0;
+
+  &:hover,
+  &:focus-visible {
+    .dare-masthead__wordmark {
+      color: var(--dare-accent);
+    }
+  }
+}
+
+.dare-masthead__wordmark {
+  font-family: var(--dare-heading);
+  font-size: clamp(1.6rem, 1.35rem + 1.1vw, 2.15rem);
+  font-weight: var(--dare-weight-bold);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--dare-text-inverse);
+  transition: color var(--dare-dur) var(--dare-ease);
+}
+
+.dare-masthead__descriptor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-left: var(--dare-spacing-3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  min-width: 0;
+}
+
+.dare-masthead__descriptor-main {
+  font-family: var(--dare-heading);
+  font-size: 0.8rem;
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+  color: var(--dare-text-inverse);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.dare-masthead__descriptor-sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--dare-text-inverse-muted);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+// --- Utilities --------------------------------------------------------------
+.dare-masthead__utilities {
+  display: flex;
+  align-items: center;
+  gap: var(--dare-spacing-3);
+  // Must be allowed to shrink: without this the DSpace auth menu's intrinsic
+  // ~350px width forced the masthead wider than a phone viewport.
+  min-width: 0;
+}
+
+.dare-masthead__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--dare-spacing-2);
+  min-width: 0;
+
+  // The inherited DSpace widgets are dark-theme-unaware; force their ink to
+  // white so they stay legible on the navy ground.
+  ::ng-deep a,
+  ::ng-deep button,
+  ::ng-deep .dropdown-toggle,
+  ::ng-deep .nav-link {
+    color: var(--dare-text-inverse);
+  }
+
+  ::ng-deep a:hover,
+  ::ng-deep button:hover {
+    color: var(--dare-accent);
+  }
+}
+
+.dare-masthead__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dare-spacing-2);
+  min-height: 40px;
+  padding: 0 var(--dare-spacing-3);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--dare-text-inverse);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-accent);
+    border-color: var(--dare-accent);
+    color: var(--dare-accent-contrast);
+  }
+}
+
+// --- Responsive -------------------------------------------------------------
+@include media-breakpoint-down(md) {
+  // The tagline is the first thing to go: the wordmark and "Repository" carry
+  // the brand on a small screen.
+  .dare-masthead__descriptor-sub {
+    display: none;
+  }
+
+  .dare-masthead__descriptor {
+    padding-left: var(--dare-spacing-2);
+  }
+
+  // Hand the auth menu to the collapsible navigation (see navbar.component.html).
+  .dare-masthead__auth {
+    display: none;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dare-masthead__descriptor {
+    display: none;
+  }
+
+  .dare-masthead__wordmark {
+    font-size: 1.5rem;
+  }
+
+  // Collapse the icon-only DSpace widgets on the narrowest screens; each is
+  // still reachable from the mobile menu and the profile page.
+  .dare-masthead__tools {
+    ::ng-deep .lang-switch,
+    ::ng-deep .impersonate {
+      display: none;
+    }
+  }
+}

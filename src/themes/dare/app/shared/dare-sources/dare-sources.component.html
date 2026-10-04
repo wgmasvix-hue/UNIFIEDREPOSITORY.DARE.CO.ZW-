@@ -1,0 +1,37 @@
+<section class="dare-sources dare-section" aria-labelledby="dare-sources-heading">
+  <div class="dare-container">
+    <span class="dare-eyebrow">Discovery networks</span>
+    <h2 id="dare-sources-heading" class="dare-h2">Open knowledge sources</h2>
+    <p class="dare-lead dare-sources__lead">
+      DARE connects to open knowledge networks so African scholarship is
+      discoverable alongside the global record. Metadata is indexed here;
+      files remain with their original providers.
+    </p>
+
+    <ul class="dare-sources__list">
+      @for (source of sources; track source.url) {
+        <li class="dare-sources__item">
+          <a
+            class="dare-sources__link"
+            [href]="source.url"
+            rel="noopener noreferrer external"
+            target="_blank"
+          >
+            <span class="dare-sources__name">
+              {{ source.name }}
+              <span class="dare-sources__external" aria-hidden="true">&#8599;</span>
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </span>
+            <span class="dare-sources__offers">{{ source.offers }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <p class="dare-sources__disclaimer">
+      Records from these networks are indexed with their original licence and
+      a link to the source. DARE does not host or claim ownership of third-party
+      content.
+    </p>
+  </div>
+</section>

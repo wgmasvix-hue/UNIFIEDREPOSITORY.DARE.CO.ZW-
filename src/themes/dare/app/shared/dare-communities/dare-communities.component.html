@@ -1,0 +1,41 @@
+<section class="dare-communities dare-section dare-section--subtle" aria-labelledby="dare-communities-heading">
+  <div class="dare-container">
+    <span class="dare-eyebrow">Participate</span>
+    <h2 id="dare-communities-heading" class="dare-h2">Our communities</h2>
+    <p class="dare-lead dare-communities__lead">
+      Browse the repository by institution, subject area or collection.
+      Every community is a live DSpace container with its own deposit policy.
+    </p>
+
+    @if (loading) {
+      <p class="dare-muted dare-communities__status" role="status">Loading communities…</p>
+    } @else if (communities.length === 0) {
+      <p class="dare-muted dare-communities__status">
+        Communities could not be loaded from the repository right now.
+      </p>
+    } @else {
+      <ul class="dare-communities__grid">
+        @for (community of communities; track community.uuid) {
+          <li class="dare-communities__cell">
+            <a
+              class="dare-communities__link"
+              [routerLink]="['/communities', community.uuid]"
+            >
+              <span class="dare-communities__name">{{ community.name }}</span>
+              @if (excerpt(community.description)) {
+                <span class="dare-communities__desc">
+                  {{ excerpt(community.description) }}
+                </span>
+              }
+              <span class="dare-communities__cta" aria-hidden="true">Visit &rarr;</span>
+            </a>
+          </li>
+        }
+      </ul>
+
+      <p class="dare-communities__all">
+        <a class="dare-link" [routerLink]="['/community-list']">View all communities</a>
+      </p>
+    }
+  </div>
+</section>

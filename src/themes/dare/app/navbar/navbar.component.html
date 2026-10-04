@@ -1,0 +1,69 @@
+<nav
+  [ngClass]="{ 'open': (menuCollapsed | async) !== true }"
+  [@slideMobileNav]="(isMobile$ | async) !== true ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
+  class="dare-nav"
+  role="navigation"
+  [attr.aria-label]="'nav.main.description' | translate"
+  id="main-navbar"
+>
+  <div class="dare-nav__inner">
+
+    <!-- Primary destinations: shown at every breakpoint. -->
+    <ul class="dare-nav__primary">
+      @for (dest of destinations; track dest.id) {
+        <li class="dare-nav__primary-item">
+          @if (dest.id === 'communities') {
+            <a class="dare-nav-link" [routerLink]="['/community-list']">
+              {{ dest.label }}
+              <span class="dare-nav-link__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          } @else {
+            <a
+              class="dare-nav-link"
+              [routerLink]="['/search']"
+              [queryParams]="{ query: dest.query }"
+            >
+              {{ dest.label }}
+              <span class="dare-nav-link__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          }
+        </li>
+      }
+
+      <li class="dare-nav__primary-item">
+        <a class="dare-nav-link" routerLink="/about">
+          About
+          <span class="dare-nav-link__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- DSpace-managed sections: browse, context, admin. -->
+    <div id="collapsingNav" class="dare-nav__sections">
+      @if ((isMobile$ | async) && (isAuthenticated$ | async)) {
+        <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
+      }
+
+      <!--
+        Below the md breakpoint the masthead hides its copy of the auth menu
+        (it is ~350px wide and would force horizontal scroll on a phone), so
+        sign-in and registration are surfaced here inside the collapsible nav.
+      -->
+      <div class="dare-nav__auth">
+        <ds-auth-nav-menu></ds-auth-nav-menu>
+      </div>
+
+      <div class="dare-nav__section-row" role="menubar">
+        @for (section of (sections | async); track section) {
+          <ng-container
+            *ngComponentOutlet="
+              (sectionMap$ | async).get(section.id)?.component;
+              injector: (sectionMap$ | async).get(section.id)?.injector
+            ">
+          </ng-container>
+        }
+      </div>
+    </div>
+
+  </div>
+</nav>

@@ -1,0 +1,82 @@
+<footer class="dare-footer" role="contentinfo">
+  <div class="dare-footer__inner">
+
+    <!-- Identity -->
+    <div class="dare-footer__brand">
+      <p class="dare-footer__wordmark">DARE</p>
+      <p class="dare-footer__tagline">Discover African Knowledge</p>
+      <p class="dare-footer__positioning">Research &middot; Education &middot; Data &middot; Innovation</p>
+    </div>
+
+    <!-- Explore -->
+    <nav class="dare-footer__col" [attr.aria-label]="'footer.explore' | translate">
+      <h2 class="dare-footer__heading">Explore</h2>
+      <ul class="dare-footer__list">
+        <li><a class="dare-footer__link" routerLink="/search" [queryParams]="{ query: '' }">Research</a></li>
+        <li><a class="dare-footer__link" routerLink="/search" [queryParams]="{ query: 'thesis dissertation' }">Theses</a></li>
+        <li><a class="dare-footer__link" routerLink="/search" [queryParams]="{ query: 'book monograph' }">Books</a></li>
+        <li><a class="dare-footer__link" routerLink="/search" [queryParams]="{ query: 'dataset data' }">Datasets</a></li>
+        <li><a class="dare-footer__link" routerLink="/community-list">Communities</a></li>
+        <li><a class="dare-footer__link" routerLink="/collections">Collections</a></li>
+      </ul>
+    </nav>
+
+    <!-- About -->
+    <nav class="dare-footer__col" [attr.aria-label]="'footer.about' | translate">
+      <h2 class="dare-footer__heading">About</h2>
+      <ul class="dare-footer__list">
+        <li><a class="dare-footer__link" routerLink="/about">About DARE</a></li>
+        <li><a class="dare-footer__link" routerLink="/info/accessibility">Accessibility</a></li>
+        @if (showPrivacyPolicy) {
+          <li><a class="dare-footer__link" routerLink="/info/privacy">Privacy</a></li>
+        }
+        @if (showEndUserAgreement) {
+          <li><a class="dare-footer__link" routerLink="/info/end-user-agreement">Policies</a></li>
+        }
+        @if (showSendFeedback$ | async) {
+          <li><a class="dare-footer__link" routerLink="/info/feedback">Feedback</a></li>
+        }
+        @if (showCookieSettings) {
+          <li>
+            <button
+              class="dare-footer__link dare-footer__button"
+              type="button"
+              (click)="openCookieSettings()"
+            >
+              {{ 'footer.link.cookies' | translate }}
+            </button>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Machine access -->
+    <nav class="dare-footer__col" [attr.aria-label]="'footer.api' | translate">
+      <h2 class="dare-footer__heading">Machine access</h2>
+      <ul class="dare-footer__list">
+        <li><a class="dare-footer__link" routerLink="/search">REST API</a></li>
+        <li><a class="dare-footer__link" href="/server/oai/request?verb=Identify">OAI-PMH</a></li>
+        <li><a class="dare-footer__link" routerLink="/statistics">Statistics</a></li>
+        <li><a class="dare-footer__link" href="https://www.dspace.org/" rel="noopener noreferrer external" target="_blank">DSpace<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Legal / attribution -->
+  <div class="dare-footer__legal">
+    <div class="dare-footer__legal-inner">
+      <p class="dare-footer__copyright">
+        &copy; {{ year }} DARE — Digital African Repositories and Education.
+        Repository software by
+        <a class="dare-footer__ext" href="https://www.dspace.org/" rel="noopener noreferrer external" target="_blank">DSpace</a>,
+        hosted by
+        <a class="dare-footer__ext" href="https://www.lyrasis.org/" rel="noopener noreferrer external" target="_blank">LYRASIS</a>.
+      </p>
+      <p class="dare-footer__provenance">
+        Records harvested from third-party networks are indexed with their
+        original licence and source link. DARE does not claim ownership of
+        third-party content.
+      </p>
+    </div>
+  </div>
+</footer>

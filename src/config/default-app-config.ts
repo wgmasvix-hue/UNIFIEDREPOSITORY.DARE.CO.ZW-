@@ -382,9 +382,12 @@ export class DefaultAppConfig implements AppConfig {
 
   // Theme Config
   themes: ThemeConfig[] = [
-    // DARE custom theme — default theme for all routes
+    // DARE theme — default theme for all routes.
+    // The component tree lives in src/themes/dare; see /opt/dare-dspace-theme/.
+    // To roll back, change this to { name: 'custom' } and revert
+    // src/themes/eager-themes.module.ts + the styles bundle in angular.json.
     {
-      name: 'custom'
+      name: 'dare'
     },
 
     // Add additional themes here. In the case where multiple themes match a route, the first one

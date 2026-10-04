@@ -1,0 +1,189 @@
+// DARE editorial homepage -------------------------------------------------------
+
+.dare-home {
+  display: block;
+}
+
+// --- Hero --------------------------------------------------------------------
+.dare-hero {
+  // Deep ink ground with a single warm horizon gradient. No photography: the
+  // inherited hero image was ~7.4 MB, which dominated the page payload.
+  background:
+    radial-gradient(
+      120% 90% at 15% 0%,
+      rgba(180, 98, 42, 0.22) 0%,
+      rgba(13, 27, 42, 0) 55%
+    ),
+    linear-gradient(180deg, var(--dare-navy-700) 0%, var(--dare-navy) 100%);
+  color: var(--dare-text-inverse);
+  padding-block: clamp(3rem, 1.5rem + 6vw, 7rem);
+}
+
+.dare-hero__title {
+  margin: 0;
+  font-family: var(--dare-heading);
+  font-size: var(--dare-display);
+  font-weight: var(--dare-weight-bold);
+  line-height: var(--dare-leading-tight);
+  letter-spacing: var(--dare-tracking-display);
+  text-transform: uppercase;
+  color: var(--dare-text-inverse);
+}
+
+.dare-hero__line {
+  display: block;
+}
+
+// The final word carries the accent, which is the single warm gesture in the
+// hero and gives the block an unmistakable focal point.
+.dare-hero__line--accent {
+  color: var(--dare-accent);
+}
+
+.dare-hero__lead {
+  max-width: 46ch;
+  margin: var(--dare-spacing-5) 0 0;
+  font-size: var(--dare-lead);
+  line-height: 1.5;
+  color: var(--dare-text-inverse-muted);
+}
+
+.dare-hero__search {
+  margin-top: var(--dare-spacing-6);
+  max-width: 46rem;
+
+  // DSpace's search form ships light-theme styling; invert it for the dark hero
+  // and keep the focus ring unmistakable.
+  ::ng-deep {
+    .search-form,
+    .search-form input,
+    .search-form .form-control {
+      background-color: var(--dare-surface);
+      color: var(--dare-text);
+      border-color: transparent;
+    }
+
+    .search-form input::placeholder {
+      color: var(--dare-muted);
+    }
+
+    .search-form button[type='submit'] {
+      background: var(--dare-accent);
+      border-color: var(--dare-accent);
+      color: var(--dare-accent-contrast);
+      font-weight: var(--dare-weight-semibold);
+      letter-spacing: var(--dare-tracking-wide);
+      text-transform: uppercase;
+
+      &:hover,
+      &:focus-visible {
+        background: var(--dare-accent-hover);
+        border-color: var(--dare-accent-hover);
+      }
+    }
+
+    .search-form input:focus-visible {
+      outline: 3px solid var(--dare-accent);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.dare-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dare-spacing-3);
+  margin-top: var(--dare-spacing-6);
+}
+
+// --- Featured band -----------------------------------------------------------
+// 12-column feel: the primary lane takes roughly two thirds, the three
+// supporting lanes share the rest.
+.dare-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+  gap: var(--dare-spacing-7);
+  margin-top: var(--dare-spacing-7);
+}
+
+.dare-featured__lanes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dare-spacing-6);
+}
+
+.dare-featured__lane {
+  // Hairline separators between the supporting lanes.
+  &:not(:first-child) {
+    padding-top: var(--dare-spacing-5);
+    border-top: 1px solid var(--dare-border);
+  }
+}
+
+// --- African knowledge band --------------------------------------------------
+.dare-africa .dare-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--dare-spacing-8);
+  align-items: start;
+}
+
+.dare-africa__intro .dare-h2 {
+  max-width: 20ch;
+}
+
+.dare-africa__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dare-spacing-1);
+  margin: var(--dare-spacing-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-nav-link--inverse {
+  color: var(--dare-text-inverse);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-accent);
+    border-bottom-color: var(--dare-accent);
+  }
+}
+
+.dare-africa__feed {
+  padding-top: var(--dare-spacing-2);
+}
+
+// --- Responsive ---------------------------------------------------------------
+@include media-breakpoint-down(lg) {
+  .dare-featured {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--dare-spacing-6);
+  }
+
+  .dare-africa .dare-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--dare-spacing-6);
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dare-hero {
+    padding-block: var(--dare-spacing-7);
+  }
+
+  // Full-width buttons on phones: a 48px-minimum target is easier to hit.
+  .dare-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    .dare-btn {
+      width: 100%;
+    }
+  }
+
+  .dare-hero__search {
+    margin-top: var(--dare-spacing-5);
+  }
+}

@@ -1,0 +1,53 @@
+<header class="dare-masthead" role="banner">
+  <div class="dare-masthead__inner">
+    <!-- Wordmark -->
+    <a
+      class="dare-masthead__brand"
+      routerLink="/home"
+      [attr.aria-label]="'DARE Repository — home'"
+    >
+      <span class="dare-masthead__wordmark">DARE</span>
+      <span class="dare-masthead__descriptor">
+        <span class="dare-masthead__descriptor-main">Repository</span>
+        <span class="dare-masthead__descriptor-sub">Discover African Knowledge</span>
+      </span>
+    </a>
+
+    <!-- Utility row -->
+    <div class="dare-masthead__utilities">
+      <ds-search-navbar></ds-search-navbar>
+
+      <div
+        class="dare-masthead__tools"
+        role="toolbar"
+        [attr.aria-label]="'nav.user.description' | translate"
+      >
+        <ds-lang-switch></ds-lang-switch>
+        <!--
+          Moved into the collapsible navigation below the md breakpoint:
+          DSpace's auth menu is ~350px wide and cannot coexist with the wordmark
+          on a phone without forcing horizontal scroll. It is re-rendered by the
+          navbar at those widths, so sign-in is never lost.
+        -->
+        <span class="dare-masthead__auth">
+          <ds-auth-nav-menu></ds-auth-nav-menu>
+        </span>
+        <ds-impersonate-navbar></ds-impersonate-navbar>
+      </div>
+
+      @if (isMobile$ | async) {
+        <button
+          class="dare-masthead__toggle"
+          type="button"
+          (click)="toggleNavbar()"
+          aria-controls="collapsingNav"
+          [attr.aria-expanded]="false"
+          [attr.aria-label]="'nav.toggle' | translate"
+        >
+          <span class="fas fa-bars fa-fw" aria-hidden="true"></span>
+          <span class="dare-masthead__toggle-text">Menu</span>
+        </button>
+      }
+    </div>
+  </div>
+</header>

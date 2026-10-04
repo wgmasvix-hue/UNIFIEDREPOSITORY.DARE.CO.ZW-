@@ -1,0 +1,151 @@
+// DARE institutional footer ----------------------------------------------------
+// Dark, substantial, and quiet. Four columns on desktop, stacked on mobile.
+
+.dare-footer {
+  background: var(--dare-navy);
+  color: var(--dare-text-inverse);
+  border-top: 3px solid var(--dare-accent);
+}
+
+.dare-footer__inner {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+  gap: var(--dare-spacing-7);
+  width: 100%;
+  max-width: var(--dare-grid-max);
+  margin-inline: auto;
+  padding: var(--dare-spacing-8) var(--dare-gutter);
+}
+
+// --- Identity ---------------------------------------------------------------
+.dare-footer__wordmark {
+  margin: 0;
+  font-family: var(--dare-heading);
+  font-size: clamp(2rem, 1.5rem + 1.8vw, 2.75rem);
+  font-weight: var(--dare-weight-bold);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--dare-text-inverse);
+}
+
+.dare-footer__tagline {
+  margin: var(--dare-spacing-3) 0 0;
+  font-family: var(--dare-heading);
+  font-size: 1.05rem;
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-accent);
+}
+
+.dare-footer__positioning {
+  margin: var(--dare-spacing-2) 0 0;
+  font-size: var(--dare-small);
+  color: var(--dare-text-inverse-muted);
+}
+
+// --- Columns ----------------------------------------------------------------
+.dare-footer__heading {
+  margin: 0 0 var(--dare-spacing-4);
+  padding-bottom: var(--dare-spacing-3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-bold);
+  letter-spacing: var(--dare-tracking-wider);
+  text-transform: uppercase;
+  color: var(--dare-text-inverse);
+}
+
+.dare-footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dare-spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-footer__link {
+  display: inline-block;
+  font-size: var(--dare-small);
+  line-height: 1.5;
+  color: var(--dare-text-inverse-muted);
+  text-decoration: none;
+  transition: color var(--dare-dur) var(--dare-ease);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+// Cookie/feedback controls are buttons but must read as links.
+.dare-footer__button {
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--dare-small);
+  color: var(--dare-text-inverse-muted);
+}
+
+.dare-footer__ext {
+  color: var(--dare-text-inverse);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-accent);
+  }
+}
+
+// --- Legal ------------------------------------------------------------------
+.dare-footer__legal {
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--dare-navy-700);
+}
+
+.dare-footer__legal-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dare-spacing-3) var(--dare-spacing-6);
+  width: 100%;
+  max-width: var(--dare-grid-max);
+  margin-inline: auto;
+  padding: var(--dare-spacing-5) var(--dare-gutter);
+}
+
+.dare-footer__copyright,
+.dare-footer__provenance {
+  margin: 0;
+  font-size: var(--dare-micro);
+  line-height: 1.6;
+  color: var(--dare-text-inverse-muted);
+}
+
+.dare-footer__provenance {
+  max-width: 52ch;
+}
+
+// --- Responsive -------------------------------------------------------------
+@include media-breakpoint-down(lg) {
+  .dare-footer__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--dare-spacing-6);
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dare-footer__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--dare-spacing-6);
+    padding-block: var(--dare-spacing-7);
+  }
+}

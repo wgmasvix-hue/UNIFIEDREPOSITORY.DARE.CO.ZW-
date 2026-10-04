@@ -1,0 +1,100 @@
+.dare-sources__lead {
+  margin-top: var(--dare-spacing-4);
+}
+
+.dare-sources__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: var(--dare-spacing-7) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--dare-border);
+}
+
+.dare-sources__item {
+  border-bottom: 1px solid var(--dare-border);
+  border-right: 1px solid var(--dare-border);
+
+  // Trim the right divider on the last column of each row.
+  &:nth-child(4n) {
+    border-right: 0;
+  }
+}
+
+.dare-sources__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dare-spacing-1);
+  height: 100%;
+  padding: var(--dare-spacing-5) var(--dare-spacing-4);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--dare-dur) var(--dare-ease);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-bg-subtle);
+
+    .dare-sources__name {
+      color: var(--dare-accent);
+    }
+  }
+}
+
+.dare-sources__name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h4);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-text);
+  transition: color var(--dare-dur) var(--dare-ease);
+}
+
+.dare-sources__external {
+  font-size: 0.7em;
+  color: var(--dare-accent);
+}
+
+.dare-sources__offers {
+  font-size: var(--dare-small);
+  line-height: 1.45;
+  color: var(--dare-muted);
+}
+
+.dare-sources__disclaimer {
+  max-width: var(--dare-measure);
+  margin-top: var(--dare-spacing-5);
+  font-size: var(--dare-small);
+  line-height: 1.55;
+  color: var(--dare-muted);
+  padding-left: var(--dare-spacing-4);
+  border-left: 3px solid var(--dare-accent);
+}
+
+@include media-breakpoint-down(lg) {
+  .dare-sources__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dare-sources__item:nth-child(4n) {
+    border-right: 1px solid var(--dare-border);
+  }
+
+  .dare-sources__item:nth-child(2n) {
+    border-right: 0;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dare-sources__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dare-sources__item {
+    border-right: 0 !important;
+  }
+}

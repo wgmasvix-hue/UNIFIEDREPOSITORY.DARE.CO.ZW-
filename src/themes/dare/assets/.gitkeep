@@ -1,0 +1,4 @@
+# Theme assets are served from /assets/dare (see webpack/webpack.common.ts).
+# The DARE theme renders its wordmark typographically and uses no raster imagery,
+# so this directory is intentionally empty. Add files here and reference them as
+# assets/dare/<path> from a template.

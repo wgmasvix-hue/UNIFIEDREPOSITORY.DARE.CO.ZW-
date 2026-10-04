@@ -1,0 +1,140 @@
+// =============================================================================
+// DARE Repository — Design Tokens
+// =============================================================================
+// Single source of truth for the DARE visual language.
+// Every component consumes these tokens; no component hard-codes a colour.
+//
+// Palette rationale (institutional, restrained, African without cliché):
+//   - Ink/navy  : authority, permanence, the archive
+//   - Clay/gold : the DARE accent. Warm, earthen, evokes sun and scholarship
+//                 without resorting to stereotypical pattern.
+//   - Sage/teal : secondary accent for interactive/active states.
+//   - Paper     : near-white ground so type carries the page.
+// =============================================================================
+
+:root {
+  // --- Ground -------------------------------------------------------------
+  --dare-bg: #ffffff;
+  --dare-bg-subtle: #f6f5f2;
+  --dare-bg-muted: #eceae4;
+  --dare-surface: #ffffff;
+  --dare-surface-raised: #fbfaf8;
+  --dare-surface-inverse: #0d1b2a;
+
+  // --- Ink ----------------------------------------------------------------
+  --dare-text: #0d1b2a;
+  --dare-text-secondary: #33414f;
+  --dare-muted: #5d6b7a;
+  --dare-text-inverse: #ffffff;
+  --dare-text-inverse-muted: #b9c4d0;
+
+  // --- Brand --------------------------------------------------------------
+  --dare-navy: #0d1b2a;
+  --dare-navy-700: #14283d;
+  --dare-navy-600: #1d3a56;
+  --dare-navy-500: #2b5075;
+
+  // --- Accent -------------------------------------------------------------
+  --dare-accent: #b4622a;
+  --dare-accent-hover: #9a4f1f;
+  --dare-accent-subtle: #f6ece3;
+  --dare-accent-contrast: #ffffff;
+
+  --dare-secondary: #1f5c54;
+  --dare-secondary-hover: #17473f;
+  --dare-secondary-subtle: #e7f0ee;
+
+  // --- Lines --------------------------------------------------------------
+  --dare-border: #dcd9d2;
+  --dare-border-strong: #0d1b2a;
+  --dare-border-subtle: #eceae4;
+
+  // --- Status -------------------------------------------------------------
+  --dare-open: #1f6b45;
+  --dare-restricted: #8a3324;
+  --dare-unknown: #5d6b7a;
+
+  // --- Typography ---------------------------------------------------------
+  --dare-heading: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --dare-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --dare-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --dare-weight-regular: 400;
+  --dare-weight-medium: 500;
+  --dare-weight-semibold: 600;
+  --dare-weight-bold: 700;
+
+  // Editorial display scale. Fluid so headlines scale without breakpoint jumps.
+  --dare-display: clamp(2.75rem, 1.2rem + 6.6vw, 7rem);
+  --dare-h1: clamp(2.25rem, 1.35rem + 3.6vw, 4rem);
+  --dare-h2: clamp(1.75rem, 1.25rem + 2.1vw, 2.75rem);
+  --dare-h3: clamp(1.3rem, 1.1rem + 0.9vw, 1.75rem);
+  --dare-h4: 1.125rem;
+  --dare-lead: clamp(1.05rem, 0.98rem + 0.4vw, 1.3rem);
+  --dare-small: 0.875rem;
+  --dare-micro: 0.75rem;
+
+  --dare-tracking-tight: -0.022em;
+  --dare-tracking-display: -0.035em;
+  --dare-tracking-wide: 0.08em;
+  --dare-tracking-wider: 0.14em;
+
+  --dare-leading-tight: 1.04;
+  --dare-leading-snug: 1.18;
+  --dare-leading-body: 1.62;
+
+  // --- Space (4px base) ---------------------------------------------------
+  --dare-spacing-1: 0.25rem;
+  --dare-spacing-2: 0.5rem;
+  --dare-spacing-3: 0.75rem;
+  --dare-spacing-4: 1rem;
+  --dare-spacing-5: 1.5rem;
+  --dare-spacing-6: 2rem;
+  --dare-spacing-7: 3rem;
+  --dare-spacing-8: 4rem;
+  --dare-spacing-9: 6rem;
+  --dare-spacing-10: 8rem;
+
+  --dare-section-y: clamp(3.5rem, 2rem + 6vw, 7.5rem);
+  --dare-gutter: clamp(1.15rem, 0.6rem + 2.4vw, 3.5rem);
+  --dare-measure: 68ch;
+
+  // --- Structure ----------------------------------------------------------
+  --dare-radius: 0;
+  --dare-radius-sm: 0;
+  --dare-radius-pill: 999px;
+
+  --dare-header-height: 74px;
+  --dare-grid-max: 1360px;
+  --dare-grid-gap: clamp(1.15rem, 0.6rem + 2vw, 2.25rem);
+
+  // --- Motion -------------------------------------------------------------
+  --dare-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dare-dur-fast: 120ms;
+  --dare-dur: 200ms;
+
+  --dare-focus-ring: 3px solid var(--dare-accent);
+  --dare-focus-offset: 3px;
+
+  // --- DSpace bridge ------------------------------------------------------
+  // DSpace components read these; mapping keeps core chrome consistent.
+  --header-logo-height: 46px;
+  --header-logo-height-xs: 34px;
+  --bs-primary: var(--dare-navy);
+  --bs-primary-rgb: 13, 27, 42;
+  --bs-link-color: var(--dare-secondary);
+  --bs-link-color-rgb: 31, 92, 84;
+  --bs-link-hover-color: var(--dare-secondary-hover);
+  --bs-body-color: var(--dare-text);
+  --bs-body-bg: var(--dare-bg);
+  --bs-border-color: var(--dare-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dare-dur-fast: 0ms;
+    --dare-dur: 0ms;
+  }
+}

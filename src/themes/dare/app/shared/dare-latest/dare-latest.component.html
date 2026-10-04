@@ -1,0 +1,27 @@
+<div class="dare-latest">
+  @if (heading) {
+    <h3 class="dare-latest__heading">{{ heading }}</h3>
+  }
+
+  @if (loading) {
+    <p class="dare-latest__status" role="status">Loading…</p>
+  } @else if (items.length === 0) {
+    <p class="dare-latest__status">No items to show.</p>
+  } @else {
+    <ul class="dare-latest__list">
+      @for (item of items; track item.uuid) {
+        <li class="dare-latest__item">
+          <a class="dare-latest__link" [routerLink]="itemLink(item)">
+            <span class="dare-latest__title">{{ item.title }}</span>
+          </a>
+          <p class="dare-latest__meta">
+            <span class="dare-latest__author">{{ authorLine(item) }}</span>
+            @if (item.date) {
+              <span class="dare-latest__date">{{ item.date | date: 'yyyy' }}</span>
+            }
+          </p>
+        </li>
+      }
+    </ul>
+  }
+</div>

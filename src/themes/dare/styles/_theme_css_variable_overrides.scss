@@ -1,0 +1,25 @@
+// =============================================================================
+// DARE Repository — DSpace CSS custom property overrides
+// =============================================================================
+// Bridges DSpace's own --ds-* variables onto the DARE design tokens so that
+// core (non-themed) chrome inherits the institutional identity.
+// The --dare-* tokens themselves live in _dare-tokens.scss.
+// =============================================================================
+
+:root {
+  --ds-header-height: var(--dare-header-height);
+
+  @include media-breakpoint-down(md) {
+    --ds-header-height: 62px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    --ds-header-height: 56px;
+  }
+
+  // Header chrome adopts the ink ground so the masthead reads as institutional.
+  --header-bg-color: var(--dare-navy);
+  --header-text-color: var(--dare-text-inverse);
+  --header-logo-height: 46px;
+  --header-logo-height-xs: 34px;
+}

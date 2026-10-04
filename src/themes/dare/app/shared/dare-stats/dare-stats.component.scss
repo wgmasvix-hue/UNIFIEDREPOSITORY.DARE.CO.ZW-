@@ -1,0 +1,113 @@
+.dare-stats {
+  background: var(--dare-navy);
+  color: var(--dare-text-inverse);
+  padding-block: clamp(2.75rem, 1.5rem + 4vw, 5rem);
+}
+
+.dare-stats__grid {
+  display: grid;
+  // Four across on desktop, two on tablet, one on small phones.
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.dare-stats__tile {
+  padding: var(--dare-spacing-5) var(--dare-spacing-5) var(--dare-spacing-5) 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
+
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+.dare-stats__label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0 0 var(--dare-spacing-3);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wider);
+  text-transform: uppercase;
+  color: var(--dare-text-inverse);
+}
+
+.dare-stats__note {
+  font-family: var(--dare-body);
+  font-size: 0.7rem;
+  font-weight: var(--dare-weight-regular);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--dare-text-inverse-muted);
+}
+
+.dare-stats__value {
+  margin: 0;
+  font-family: var(--dare-heading);
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.25rem);
+  font-weight: var(--dare-weight-bold);
+  line-height: 1;
+  letter-spacing: var(--dare-tracking-tight);
+  font-variant-numeric: tabular-nums;
+  color: var(--dare-text-inverse);
+
+  &--pending {
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+.dare-stats__source {
+  margin: var(--dare-spacing-6) 0 0;
+  font-size: var(--dare-micro);
+  color: var(--dare-text-inverse-muted);
+
+  code {
+    font-family: var(--dare-mono);
+    font-size: 0.95em;
+    color: var(--dare-text-inverse-muted);
+  }
+}
+
+// --- Responsive -----------------------------------------------------------
+@include media-breakpoint-down(lg) {
+  .dare-stats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dare-stats__tile {
+    border-right: 1px solid rgba(255, 255, 255, 0.22);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    padding-right: var(--dare-spacing-4);
+
+    &:nth-child(2n) {
+      border-right: 0;
+    }
+
+    &:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dare-stats__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dare-stats__tile {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    padding-inline: 0;
+
+    &:nth-last-child(-n + 2) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}

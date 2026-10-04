@@ -1,0 +1,151 @@
+<!--
+  NOTE ON LANDMARKS: DSpace's root shell already provides the main landmark
+  (id="main-content") and a "skip to content" control (#skip-to-main-content).
+  This page therefore deliberately renders a plain div, and adds no second main
+  landmark and no second skip link - duplicate landmarks are an accessibility
+  defect, not a feature.
+-->
+<div class="dare-home">
+
+  <!-- ============================ HERO ============================ -->
+  <section class="dare-hero" aria-labelledby="dare-hero-heading">
+    <div class="dare-container">
+      <p class="dare-eyebrow">DARE Repository</p>
+
+      <!--
+        Each word is its own line for the editorial stack. Real whitespace is
+        kept between the spans so the accessible name and copied text read
+        "Discover African Knowledge" rather than "DiscoverAfricanKnowledge".
+      -->
+      <h1 id="dare-hero-heading" class="dare-hero__title">
+        <span class="dare-hero__line">Discover</span>
+        <span class="dare-hero__line">African</span>
+        <span class="dare-hero__line dare-hero__line--accent">Knowledge</span>
+      </h1>
+
+      <p class="dare-hero__lead">
+        Research, books, theses, datasets and open educational resources
+        from Africa and the world.
+      </p>
+
+      <!-- The one search box that matters. Reuses DSpace's accessible search
+           form so query handling, suggestions and routing stay consistent. -->
+      <div class="dare-hero__search">
+        <ds-search-form
+          [query]="''"
+          [large]="true"
+          [showScopeSelector]="false"
+          searchPlaceholder="Search research, books, theses, datasets..."
+        ></ds-search-form>
+      </div>
+
+      <div class="dare-hero__actions">
+        <a
+          class="dare-btn dare-btn--accent"
+          routerLink="/search"
+          [queryParams]="{ query: '' }"
+        >
+          Search
+        </a>
+        <a
+          class="dare-btn dare-btn--ghost"
+          routerLink="/community-list"
+        >
+          Browse collections
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FEATURED RESEARCH ====================== -->
+  <section class="dare-section dare-section--tight" aria-labelledby="dare-featured-heading">
+    <div class="dare-container">
+      <span class="dare-eyebrow">Featured research</span>
+      <h2 id="dare-featured-heading" class="dare-h2">Latest research</h2>
+      <hr class="dare-rule dare-rule--accent" />
+
+      <div class="dare-featured">
+        <!-- Primary lane: most recent items, given the most space. -->
+        <div class="dare-featured__primary">
+          <dare-latest [limit]="8" heading="Recently added"></dare-latest>
+        </div>
+
+        <!-- Supporting lanes. -->
+        <div class="dare-featured__lanes">
+          @for (lane of lanes; track lane.id) {
+            <div class="dare-featured__lane">
+              <dare-latest
+                [limit]="4"
+                [query]="lane.query"
+                [heading]="lane.label"
+              ></dare-latest>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= EXPLORE ======================= -->
+  <dare-explore></dare-explore>
+
+  <!-- ======================== STATISTICS ======================== -->
+  <dare-stats></dare-stats>
+
+  <!-- ==================== AFRICAN KNOWLEDGE ==================== -->
+  <section class="dare-section dare-section--inverse dare-africa" aria-labelledby="dare-africa-heading">
+    <div class="dare-container">
+      <div class="dare-africa__intro">
+        <span class="dare-eyebrow">African knowledge</span>
+        <h2 id="dare-africa-heading" class="dare-h2">
+          Scholarship documenting Africa&rsquo;s knowledge,
+          innovation and experience
+        </h2>
+        <p class="dare-lead">
+          Research, language resources and educational material from across the
+          continent and the wider African diaspora.
+        </p>
+
+        <ul class="dare-africa__links">
+          <li>
+            <a class="dare-nav-link dare-nav-link--inverse"
+               routerLink="/search" [queryParams]="{ query: 'Africa African' }">
+              African research <span class="dare-nav-link__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="dare-nav-link dare-nav-link--inverse"
+               routerLink="/search" [queryParams]="{ query: 'Zimbabwe' }">
+              Zimbabwe <span class="dare-nav-link__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="dare-nav-link dare-nav-link--inverse"
+               routerLink="/search" [queryParams]="{ query: 'Southern Africa' }">
+              Southern Africa <span class="dare-nav-link__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="dare-nav-link dare-nav-link--inverse"
+               routerLink="/search" [queryParams]="{ query: 'indigenous knowledge' }">
+              Indigenous knowledge <span class="dare-nav-link__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dare-africa__feed">
+        <dare-latest [limit]="6" query="Africa African" heading="From across the continent"></dare-latest>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== COMMUNITIES ======================== -->
+  <dare-communities></dare-communities>
+
+  <!-- ========================== SOURCES ========================== -->
+  <dare-sources></dare-sources>
+
+  <!-- Preserve DSpace's repository suggestion popup. -->
+  <ds-suggestions-popup></ds-suggestions-popup>
+</div>
