@@ -1,0 +1,171 @@
+// =============================================================================
+// DARE Repository — Comcol (community & collection) page styling
+// =============================================================================
+// Community and collection pages keep DSpace's own templates, because their
+// browse sections, sub-container listings and edit menus are substantial
+// working machinery that would be costly to reimplement and easy to break.
+//
+// What changes here is presentation only: the page is restyled into an
+// institutional record — a full-bleed nameplate, editorial typography, and a
+// ruled browse section — so it belongs to the same design language as the
+// homepage and the item page. No functionality is added or removed.
+//
+// Selectors are scoped to `.community-page` / `.collection-page` so nothing
+// here can reach the editorial pages or the header.
+// =============================================================================
+
+.community-page,
+.collection-page {
+  padding-block: var(--dare-spacing-6) var(--dare-spacing-8);
+}
+
+// The DSpace template wraps the page in Bootstrap's `.container`, which is a
+// narrower fixed-width box than the DARE grid. Re-point it at the DARE measure
+// so these pages align with everything else on the site.
+.community-page > .container,
+.collection-page > .container {
+  max-width: var(--dare-grid-max);
+  padding-inline: var(--dare-gutter);
+}
+
+// --- Nameplate ---------------------------------------------------------------
+// DSpace puts the name, logo, handle and intro text in a flex row. Re-flow it
+// into a single editorial column under a heavy rule.
+.community-page .comcol-header,
+.collection-page .comcol-header {
+  max-width: var(--dare-measure);
+
+  h1,
+  h2 {
+    margin: 0;
+    font-family: var(--dare-heading);
+    font-size: var(--dare-h1);
+    font-weight: var(--dare-weight-bold);
+    line-height: var(--dare-leading-snug);
+    letter-spacing: var(--dare-tracking-tight);
+    color: var(--dare-text);
+    text-wrap: balance;
+  }
+}
+
+// Logo sits above the name: a mark reads as a masthead, not a stray thumbnail.
+ds-comcol-page-logo {
+  display: block;
+  margin-bottom: var(--dare-spacing-4);
+
+  img {
+    max-height: 88px;
+    width: auto;
+    object-fit: contain;
+    object-position: left center;
+  }
+}
+
+// Handle: small, monospaced, clearly provenance rather than content.
+ds-comcol-page-handle {
+  margin-top: var(--dare-spacing-3);
+
+  .text-muted,
+  small {
+    font-family: var(--dare-mono);
+    font-size: 0.8rem;
+    color: var(--dare-muted);
+  }
+}
+
+// Introductory text and news: readable measure, generous leading.
+ds-comcol-page-content .content-with-optional-title {
+  max-width: var(--dare-measure);
+  margin-top: var(--dare-spacing-4);
+  font-size: 1rem;
+  line-height: var(--dare-leading-body);
+  color: var(--dare-text-secondary);
+
+  h2 {
+    margin: 0 0 var(--dare-spacing-2);
+    font-family: var(--dare-heading);
+    font-size: var(--dare-micro);
+    font-weight: var(--dare-weight-bold);
+    letter-spacing: var(--dare-tracking-wider);
+    text-transform: uppercase;
+    color: var(--dare-muted);
+  }
+
+  // Community introductory text is author-supplied HTML from DSpace.
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// --- Browse section ----------------------------------------------------------
+.community-page .comcol-page-browse-section,
+.collection-page .comcol-page-browse-section {
+  margin-top: var(--dare-spacing-6);
+  padding-top: var(--dare-spacing-5);
+  border-top: 2px solid var(--dare-border-strong);
+}
+
+// The browse-by block is a list of record types. Present it as an editorial
+// index rather than a row of pills.
+ds-comcol-page-browse-by {
+  margin-bottom: var(--dare-spacing-6);
+
+  .btn-group,
+  .list-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dare-spacing-2);
+  }
+
+  .btn,
+  .list-group-item {
+    border: 1px solid var(--dare-border);
+    border-radius: 0;
+    background: transparent;
+    color: var(--dare-text-secondary);
+    font-family: var(--dare-heading);
+    font-size: var(--dare-small);
+    letter-spacing: 0.02em;
+    transition: border-color var(--dare-dur) var(--dare-ease),
+      color var(--dare-dur) var(--dare-ease);
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--dare-accent);
+      color: var(--dare-accent);
+    }
+
+    &:active,
+    .active {
+      background: var(--dare-navy);
+      border-color: var(--dare-navy);
+      color: var(--dare-text-inverse);
+    }
+  }
+}
+
+// --- Sub-container listings (communities / collections inside a page) --------
+ds-comcol-page-sub-collection-list,
+.community-page-sub-collection-list,
+.community-page-sub-community-list {
+  .list-group-item,
+  .card {
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid var(--dare-border);
+    margin-bottom: var(--dare-spacing-2);
+  }
+
+  .list-group-item:hover {
+    border-color: var(--dare-accent);
+  }
+}
+
+// --- Responsive --------------------------------------------------------------
+@include media-breakpoint-down(md) {
+  .community-page,
+  .collection-page {
+    padding-block: var(--dare-spacing-5) var(--dare-spacing-7);
+  }
+}

@@ -64,9 +64,31 @@
   color: var(--dare-muted);
 }
 
-.dare-communities__cta {
+// Count and call-to-action share a baseline row so every cell in the grid
+// lines up regardless of how long the description above it runs.
+.dare-communities__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dare-spacing-3);
   margin-top: auto;
-  padding-top: var(--dare-spacing-2);
+  padding-top: var(--dare-spacing-3);
+  border-top: 1px solid var(--dare-border-subtle);
+}
+
+.dare-communities__count {
+  font-size: var(--dare-micro);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--dare-muted);
+}
+
+.dare-communities__count-unknown {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.dare-communities__cta {
   font-size: var(--dare-micro);
   font-weight: var(--dare-weight-semibold);
   letter-spacing: var(--dare-tracking-wide);

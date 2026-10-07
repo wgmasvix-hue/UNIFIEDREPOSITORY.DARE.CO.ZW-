@@ -1,16 +1,30 @@
 <header class="dare-masthead" role="banner">
   <div class="dare-masthead__inner">
-    <!-- Wordmark -->
+    <!-- Brand lockup: new DARE Unified Repository logo.
+      The image is the full lockup (mark + "DARE / UNIFIED REPOSITORY /
+      AFRICA'S KNOWLEDGE, CONNECTED."), so no HTML wordmark is recreated
+      next to it. The link carries the accessible name; the image carries
+      the required alt text. Sizing/cropping lives in header.component.scss
+      via --dare-brand-logo-* variables so the Unified theme can re-skin
+      without forking this component. -->
     <a
       class="dare-masthead__brand"
       routerLink="/home"
-      [attr.aria-label]="'DARE Repository — home'"
+      aria-label="DARE Unified Repository — home"
     >
-      <span class="dare-masthead__wordmark">DARE</span>
-      <span class="dare-masthead__descriptor">
-        <span class="dare-masthead__descriptor-main">Repository</span>
-        <span class="dare-masthead__descriptor-sub">Discover African Knowledge</span>
+      <span class="dare-brand__plate">
+        <img
+          class="dare-brand__logo"
+          src="assets/images/branding/dare-unified-logo.png"
+          alt="DARE Unified Repository"
+          width="1433"
+          height="542"
+          decoding="async"
+          fetchpriority="high"
+          draggable="false"
+        />
       </span>
+      <span class="dare-brand__fallback">DARE Unified Repository</span>
     </a>
 
     <!-- Utility row -->
@@ -41,7 +55,7 @@
           type="button"
           (click)="toggleNavbar()"
           aria-controls="collapsingNav"
-          [attr.aria-expanded]="false"
+          [attr.aria-expanded]="(navbarExpanded$ | async) === true"
           [attr.aria-label]="'nav.toggle' | translate"
         >
           <span class="fas fa-bars fa-fw" aria-hidden="true"></span>

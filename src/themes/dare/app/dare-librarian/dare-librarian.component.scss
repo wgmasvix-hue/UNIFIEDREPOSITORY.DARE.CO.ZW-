@@ -118,6 +118,194 @@
   font-size: 14px;
 }
 
+// --- Messages ---------------------------------------------------------------
+.message {
+  margin-bottom: 16px;
+  min-width: 0;
+}
+
+.message:last-child {
+  margin-bottom: 0;
+}
+
+.message-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #172033;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.user-message {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-message .message-content {
+  max-width: 85%;
+  padding: 10px 14px;
+  background: #071b33;
+  color: #fff;
+  border-radius: 12px 12px 3px 12px;
+}
+
+// --- Rendered Markdown (assistant answers) -----------------------------------
+// Answers arrive as Markdown (headings, tables, lists, links). These rules keep
+// every element the model emits readable inside the 380px panel.
+.assistant-message .message-content > *:first-child {
+  margin-top: 0;
+}
+
+.assistant-message .message-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.assistant-message .message-content p {
+  margin: 0 0 10px;
+  color: #172033;
+}
+
+.assistant-message .message-content h1,
+.assistant-message .message-content h2,
+.assistant-message .message-content h3,
+.assistant-message .message-content h4 {
+  margin: 14px 0 6px;
+  color: #071b33;
+  line-height: 1.35;
+}
+
+.assistant-message .message-content h1 { font-size: 17px; }
+.assistant-message .message-content h2 { font-size: 16px; }
+.assistant-message .message-content h3,
+.assistant-message .message-content h4 { font-size: 14px; }
+
+.assistant-message .message-content ul,
+.assistant-message .message-content ol {
+  margin: 0 0 10px;
+  padding-left: 20px;
+  color: #172033;
+}
+
+.assistant-message .message-content li {
+  margin-bottom: 4px;
+}
+
+.assistant-message .message-content a {
+  color: #0d6b62;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  overflow-wrap: anywhere;
+}
+
+.assistant-message .message-content a:hover {
+  color: #084a44;
+}
+
+// Model answers compare records in Markdown tables. Tables are wider than the
+// panel, so the table itself becomes the scroll container rather than pushing
+// the page sideways.
+.assistant-message .message-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 10px;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.assistant-message .message-content th,
+.assistant-message .message-content td {
+  padding: 6px 8px;
+  border: 1px solid #e4e7ec;
+  text-align: left;
+  vertical-align: top;
+  min-width: 90px;
+}
+
+.assistant-message .message-content th {
+  background: #f2f4f7;
+  font-weight: 600;
+  color: #071b33;
+}
+
+.assistant-message .message-content blockquote {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border-left: 3px solid #0d6b62;
+  background: #f5fbfa;
+  color: #344054;
+}
+
+.assistant-message .message-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  background: #f2f4f7;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.assistant-message .message-content pre {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  background: #071b33;
+  color: #eef2f6;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.assistant-message .message-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+// --- Sources -----------------------------------------------------------------
+.sources {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sources-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #667085;
+}
+
+.source {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  background: #fff;
+  color: #172033;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+a.source:hover {
+  border-color: #0d6b62;
+  background: #f5fbfa;
+}
+
+.source--text {
+  background: #f8fafc;
+}
+
+.source-icon {
+  flex: 0 0 auto;
+  color: #0d6b62;
+  font-weight: 700;
+}
+
 .suggestions {
   margin-top: 24px;
   display: flex;

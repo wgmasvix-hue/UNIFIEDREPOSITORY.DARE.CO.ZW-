@@ -1,0 +1,160 @@
+// =============================================================================
+// Unified Repository — Bootstrap / Sass variable overrides
+// =============================================================================
+// The ONLY place Bootstrap Sass variables are redefined for the Unified theme.
+//
+// ORDER IS LOAD-BEARING. Every override below is declared BEFORE
+// `src/styles/_variables.scss` is pulled in, and every declaration carries
+// `!default`. That matters: `src/styles/_bootstrap_variables.scss` and
+// Bootstrap's own `_variables.scss` both declare these same names with
+// `!default`, so whoever is read first wins. Declaring ours first means the
+// Unified palette actually reaches Bootstrap's compiled components
+// (pagination, tables, form controls, dropdowns) instead of being silently
+// discarded.
+//
+// The palette is declared once here and compiled to the `--unified-*` custom
+// properties in `_unified-tokens.scss`, which is the runtime source of truth.
+// Re-skinning the whole site therefore means editing this file only.
+//
+// Palette (restrained academic):
+//   Primary  #123B5D  institutional blue — chrome, headings, primary actions
+//   Dark     #0B2940  masthead and inverse bands
+//   Accent   #C79A3B  the single warm accent, used sparingly
+//   Canvas   #F6F8FA  page ground
+// =============================================================================
+
+@import "../../../styles/_functions.scss";
+
+/* Core Unified palette ---------------------------------------------------- */
+$unified-primary: #123b5d !default;
+$unified-primary-700: #0d2f4b !default;
+$unified-primary-600: #17496f !default;
+$unified-primary-100: #e7eef4 !default;
+
+$unified-dark: #0b2940 !default;
+$unified-accent: #c79a3b !default;
+$unified-accent-dark: #a67d28 !default;
+$unified-accent-soft: #f7efdd !default;
+
+$unified-canvas: #f6f8fa !default;
+$unified-canvas-alt: #eef2f6 !default;
+$unified-canvas-deep: #e4eaf1 !default;
+$unified-surface: #ffffff !default;
+
+$unified-text: #17212b !default;
+$unified-muted: #61707d !default;
+$unified-white: #ffffff !default;
+
+$unified-rule: #d8e0e8 !default;
+$unified-rule-strong: #b6c4d1 !default;
+
+$unified-open: #1c6b4a !default;
+$unified-restricted: #9a3324 !default;
+
+/* Typography ---------------------------------------------------------------
+   System faces first. An academic repository must never block first paint on a
+   webfont, and this fallback stack is chosen to look deliberate on Linux,
+   macOS, Windows and Android alike. */
+$font-family-sans-serif:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial,
+  "Noto Sans",
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol",
+  "Noto Color Emoji" !default;
+
+$font-family-monospace:
+  "IBM Plex Mono",
+  "SFMono-Regular",
+  Menlo,
+  Consolas,
+  "Liberation Mono",
+  monospace !default;
+
+$headings-font-weight: 700 !default;
+$headings-line-height: 1.15 !default;
+$link-decoration: underline !default;
+$link-hover-decoration: underline !default;
+
+/* Map the palette onto Bootstrap's ramp and semantic slots. */
+$blue: $unified-primary !default;
+$green: $unified-open !default;
+$cyan: $unified-primary-600 !default;
+$yellow: $unified-accent !default;
+$red: $unified-restricted !default;
+
+$gray-900: $unified-dark !default;
+$gray-800: #253442 !default;
+$gray-700: $unified-text !default;
+$gray-600: #46535f !default;
+$gray-500: $unified-muted !default;
+$gray-400: #8a97a3 !default;
+$gray-300: #b6c4d1 !default;
+$gray-200: $unified-rule !default;
+$gray-100: $unified-canvas !default;
+
+$primary: $unified-primary !default;
+$secondary: $unified-muted !default;
+$success: $unified-open !default;
+$info: $unified-primary-600 !default;
+$warning: $unified-accent !default;
+$danger: $unified-restricted !default;
+$light: $unified-canvas !default;
+$dark: $unified-dark !default;
+
+/* `#123B5D` on white is 8.6:1 — past WCAG AA for body text and AAA for large
+   text — so link colour is never the weak point of the contrast budget. */
+$link-color: $unified-primary !default;
+$link-hover-color: $unified-primary-700 !default;
+
+/* Chrome ------------------------------------------------------------------- */
+$ds-header-bg: $unified-dark !default;
+$ds-header-icon-color: $unified-white !default;
+$ds-header-icon-color-hover: $unified-accent !default;
+$ds-navbar-bg: $unified-surface !default;
+$ds-navbar-dropdown-bg: $unified-surface !default;
+$ds-expandable-navbar-bg: $unified-surface !default;
+$ds-navbar-link-color: $unified-primary !default;
+$ds-navbar-link-color-hover: $unified-primary-700 !default;
+$ds-breadcrumb-link-color: $unified-primary !default;
+$ds-breadcrumb-link-active-color: $unified-text !default;
+$ds-admin-sidebar-bg: $unified-dark !default;
+$ds-admin-sidebar-active-bg: $unified-primary-700 !default;
+$ds-header-navbar-border-bottom-color: $unified-rule !default;
+
+/* Extra semantic colours exposed to Bootstrap helpers
+   (.bg-unified-*, .text-unified-*, .btn-outline-unified-*). */
+$theme-custom-semantic-colors: (
+  unified-primary: $unified-primary,
+  unified-dark: $unified-dark,
+  unified-accent: $unified-accent,
+  unified-canvas: $unified-canvas,
+  unified-text: $unified-text,
+  unified-muted: $unified-muted,
+  unified-surface: $unified-surface,
+  unified-primary-100: $unified-primary-100,
+  unified-accent-soft: $unified-accent-soft
+);
+
+// Pull in DSpace's own Bootstrap defaults. Everything above is `!default`, so
+// the Unified values survive this import.
+@import "../../../styles/_variables.scss";
+
+// Derive the remaining values now that `$theme-colors` and friends exist.
+$theme-colors: map-merge($theme-colors, $theme-custom-semantic-colors);
+$border-color: $unified-rule !default;
+
+// A restrained 2px radius: enough to soften, not enough to read as a consumer
+// product. Note that DSpace pins `$border-radius` and `$bs-border-radius-lg`
+// unconditionally, so only the scaled variants are reachable from here.
+$border-radius-sm: 2px !default;
+$border-radius-lg: 3px !default;
+$border-radius-xl: 3px !default;
+$border-radius-pill: 999px !default;

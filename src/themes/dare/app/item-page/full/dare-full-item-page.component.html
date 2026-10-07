@@ -1,0 +1,205 @@
+<!--
+  DARE scholarly item page.
+
+  Laid out as a publication record rather than a metadata table: the citation
+  line and document type lead, the descriptive metadata follows, and files and
+  versions sit below. The two-column split puts the record and its files side
+  by side on a wide screen and stacks them in source order on a phone, so the
+  reading order is correct at every width.
+
+  This file must stay free of extra <main>/landmark roles: the DSpace root shell
+  already owns the main landmark and the skip link.
+-->
+<div class="dare-item" *ngVar="(itemRD$ | async) as itemRD">
+  @if (itemRD?.hasSucceeded) {
+    @if (itemRD?.payload; as item) {
+      <ds-item-alerts [item]="item"></ds-item-alerts>
+      <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
+
+      @if (!item.isWithdrawn || (isAdmin$ | async)) {
+        <article class="dare-item__record" @fadeInOut>
+          @if (view$ | async; as view) {
+
+            <!-- ========================= HEADLINE ========================= -->
+            <header class="dare-item__headline">
+              <div class="dare-item__headline-bar">
+                @if (view.documentType) {
+                  <p class="dare-item__type">{{ view.documentType }}</p>
+                }
+                <span class="dare-item__spacer"></span>
+                <ds-dso-edit-menu></ds-dso-edit-menu>
+              </div>
+
+              <h1 class="dare-item__title">
+                <ds-item-page-title-field [item]="item"></ds-item-page-title-field>
+              </h1>
+
+              @if (view.authors.length > 0) {
+                <ul class="dare-item__authors">
+                  @for (author of view.authors; track author) {
+                    <li class="dare-item__author">{{ author }}</li>
+                  }
+                </ul>
+              }
+
+              <!-- Provenance line: where it came from and when. -->
+              <dl class="dare-item__provenance">
+                @if (view.institution) {
+                  <div class="dare-item__provenance-pair">
+                    <dt>Published by</dt>
+                    <dd>{{ view.institution }}</dd>
+                  </div>
+                }
+                @if (view.date) {
+                  <div class="dare-item__provenance-pair">
+                    <dt>Issued</dt>
+                    <dd><time [attr.datetime]="view.date">{{ view.date }}</time></dd>
+                  </div>
+                }
+                @if (item.handle) {
+                  <div class="dare-item__provenance-pair">
+                    <dt>Identifier</dt>
+                    <dd><code class="dare-item__handle">{{ item.handle }}</code></dd>
+                  </div>
+                }
+              </dl>
+            </header>
+
+            <!-- ====================== BODY COLUMNS ====================== -->
+            <div class="dare-item__columns">
+
+              <!-- Descriptive record -->
+              <div class="dare-item__main">
+
+                @if (view.abstract) {
+                  <section class="dare-item__section" aria-labelledby="dare-abstract-heading">
+                    <h2 id="dare-abstract-heading" class="dare-item__section-heading">Abstract</h2>
+                    <p class="dare-item__abstract">{{ view.abstract }}</p>
+                  </section>
+                }
+
+                @if (view.subjects.length > 0) {
+                  <section class="dare-item__section" aria-labelledby="dare-subjects-heading">
+                    <h2 id="dare-subjects-heading" class="dare-item__section-heading">Subjects</h2>
+                    <ul class="dare-item__subjects">
+                      @for (subject of view.subjects; track subject) {
+                        <li class="dare-item__subject">
+                          <a
+                            class="dare-item__subject-link"
+                            routerLink="/search"
+                            [queryParams]="{ query: subject }"
+                          >{{ subject }}</a>
+                        </li>
+                      }
+                    </ul>
+                  </section>
+                }
+
+                @for (field of view.identifiers; track field.label) {
+                  <section class="dare-item__section" aria-labelledby="dare-identifiers-heading">
+                    <h2 id="dare-identifiers-heading" class="dare-item__section-heading">
+                      {{ field.label }}
+                    </h2>
+                    <ul class="dare-item__identifier-list">
+                      @for (identifier of field.values; track identifier) {
+                        <li>
+                          @if (identifier.startsWith('http')) {
+                            <a
+                              class="dare-item__identifier"
+                              [href]="identifier"
+                              rel="noopener noreferrer external"
+                              target="_blank"
+                            >{{ identifier }}<span class="visually-hidden"> (opens in a new tab)</span></a>
+                          } @else {
+                            <span class="dare-item__identifier">{{ identifier }}</span>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  </section>
+                }
+
+                <!-- Citation -->
+                <section class="dare-item__section" aria-labelledby="dare-citation-heading">
+                  <h2 id="dare-citation-heading" class="dare-item__section-heading">Cite this item</h2>
+                  <blockquote class="dare-item__citation">{{ view.citation }}</blockquote>
+                </section>
+
+                <!-- Rights and provenance -->
+                @if (view.rights.length > 0 || view.source || view.publisherNote) {
+                  <section class="dare-item__section" aria-labelledby="dare-rights-heading">
+                    <h2 id="dare-rights-heading" class="dare-item__section-heading">Rights &amp; source</h2>
+                    <dl class="dare-item__facts">
+                      @if (view.rights.length > 0) {
+                        <div class="dare-item__fact">
+                          <dt>Licence</dt>
+                          <dd>
+                            @for (right of view.rights; track right) {
+                              <span class="dare-item__fact-value">{{ right }}</span>
+                            }
+                          </dd>
+                        </div>
+                      }
+                      @if (view.source) {
+                        <div class="dare-item__fact">
+                          <dt>Source</dt>
+                          <dd><span class="dare-item__fact-value">{{ view.source }}</span></dd>
+                        </div>
+                      }
+                      @if (view.publisherNote) {
+                        <div class="dare-item__fact">
+                          <dt>Note</dt>
+                          <dd><span class="dare-item__fact-value">{{ view.publisherNote }}</span></dd>
+                        </div>
+                      }
+                    </dl>
+                  </section>
+                }
+
+                <!-- Collections the item belongs to: the "related items" route
+                     a reader uses to move sideways through the repository. -->
+                <section class="dare-item__section" aria-labelledby="dare-collections-heading">
+                  <h2 id="dare-collections-heading" class="dare-item__section-heading">Part of</h2>
+                  <ds-item-page-collections [item]="item"></ds-item-page-collections>
+                </section>
+              </div>
+
+              <!-- Files: PDFs, datasets, and every other bitstream. The
+                   inherited file section prints its own "Files" heading, so
+                   this wrapper adds only the rail styling, not a second one. -->
+              <aside class="dare-item__aside" aria-label="Files">
+                <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
+              </aside>
+            </div>
+
+            <ds-item-versions class="dare-item__versions" [item]="item"></ds-item-versions>
+
+            @if (!fromSubmissionObject) {
+              <p class="dare-item__viewlinks">
+                <a class="dare-btn dare-btn--ghost" [routerLink]="[(itemPageRoute$ | async)]">
+                  {{ 'item.page.link.simple' | translate }}
+                </a>
+              </p>
+            }
+
+            @if (fromSubmissionObject) {
+              <div class="dare-item__viewlinks">
+                <button class="dare-btn dare-btn--ghost" type="button" (click)="back()">
+                  <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                  {{ 'item.page.return' | translate }}
+                </button>
+              </div>
+            }
+          }
+        </article>
+      }
+    }
+  }
+
+  @if (itemRD?.hasFailed) {
+    <ds-error message="{{ 'error.item' | translate }}"></ds-error>
+  }
+  @if (itemRD?.isLoading) {
+    <ds-loading message="{{ 'loading.item' | translate }}"></ds-loading>
+  }
+</div>

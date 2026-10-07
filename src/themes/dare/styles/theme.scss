@@ -31,5 +31,17 @@
 @import "./_dare-tokens.scss";
 @import "./_dare-base.scss";
 
-// 6. Theme-level global styles.
+// 6. Institutional page styling for community/collection routes, which keep
+//    DSpace's own templates.
+@import "./_dare-comcol.scss";
+
+// 7. Item pages: the /items/:id simple view keeps DSpace's components and is
+//    re-presented editorially.
+@import "./_dare-item.scss";
+
+// 8. Search results styling. Search keeps DSpace's query handling, facets and
+//    pagination untouched; this layer is presentation only.
+@import "./_dare-search.scss";
+
+// 9. Theme-level global styles.
 @import "./_global-styles.scss";

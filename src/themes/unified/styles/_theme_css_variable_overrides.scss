@@ -1,0 +1,42 @@
+// =============================================================================
+// Unified Repository — DSpace CSS custom property overrides
+// =============================================================================
+// Bridges DSpace's own `--ds-*` variables onto the Unified design tokens so
+// that core (non-themed) chrome inherits the institutional identity without
+// being rewritten. The `--unified-*` tokens themselves are declared in
+// `_unified-tokens.scss`, which is imported later (it does not matter here:
+// custom-property references are resolved at use time, not at declaration
+// time).
+// =============================================================================
+
+:root {
+  --unified-header-height: 76px;
+
+  --ds-header-height: var(--unified-header-height);
+
+  @include media-breakpoint-down(md) {
+    --ds-header-height: 66px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    --ds-header-height: 58px;
+  }
+
+  // Header chrome adopts the dark ground so the masthead reads as an
+  // institution rather than a consumer site.
+  --header-bg-color: var(--unified-dark);
+  --header-text-color: var(--unified-white);
+  --header-logo-height: 48px;
+  --header-logo-height-xs: 36px;
+
+  // Unified inherits the DARE header component (`extends: 'dare'` when this
+  // theme is activated), so the DARE Unified Repository logo plate comes for
+  // free — no component is forked. The plate reads its geometry from these
+  // tokens with built-in DARE fallbacks (60px desktop / 46px md / 44px sm),
+  // so this theme only needs to declare what it changes: nothing today, the
+  // defaults already match the Unified 76/66/58px header rhythm. To re-brand
+  // (e.g. a light-ground lockup), set --dare-brand-logo-height[-md|-sm] here
+  // — or just the image `src` in a Unified header override — and leave the
+  // DARE component untouched.
+  --dare-brand-logo-height: 60px;
+}

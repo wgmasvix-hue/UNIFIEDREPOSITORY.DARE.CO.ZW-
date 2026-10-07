@@ -1,0 +1,423 @@
+// =============================================================================
+// Unified Repository — Design Tokens
+// =============================================================================
+// Single source of truth for the Unified visual language. Every Unified
+// component reads these; no component hard-codes a colour.
+//
+// THREE LAYERS, IN ORDER:
+//
+//   1. RAW PALETTE ....... `--ur-*`. Literal colours. Never used by a
+//                          component directly; exists so dark mode can be a
+//                          pure remap.
+//   2. SEMANTIC TOKENS ... `--unified-*`. What components actually consume
+//                          (surface, ink, rule, accent...). Light values are
+//                          the defaults declared on `:root`; the dark block
+//                          below remaps the same names.
+//   3. DARE BRIDGE ....... `--dare-*`. The ancestor theme's tokens, remapped
+//                          onto the Unified palette. See the note above the
+//                          bridge.
+//
+// WHY THE DARE BRIDGE EXISTS
+// --------------------------
+// The Unified theme extends the DARE theme, so most of the interface — the
+// search page, the item page, the community and collection pages, and all of
+// DSpace's admin/submission surfaces — is rendered by *inherited DARE
+// components* whose templates reference `var(--dare-*)`. Rather than fork
+// ~200 files, Unified re-skins them by redefining the tokens those templates
+// read. The inherited markup therefore adopts the Unified identity for free,
+// and only components that genuinely need different presentation are
+// overridden with real Unified components.
+//
+// If DARE is ever removed as an ancestor, delete the bridge block and the
+// imports of the DARE layers in theme.scss; nothing else changes.
+// =============================================================================
+
+:root {
+  color-scheme: light;
+
+  // --- 1. Raw palette ------------------------------------------------------
+  --ur-primary: #123b5d;
+  --ur-primary-700: #0d2f4b;
+  --ur-primary-600: #17496f;
+  --ur-primary-100: #e7eef4;
+
+  --ur-dark: #0b2940;
+  --ur-dark-800: #071d2e;
+
+  --ur-accent: #c79a3b;
+  --ur-accent-dark: #a67d28;
+  --ur-accent-soft: #f7efdd;
+
+  --ur-canvas: #f6f8fa;
+  --ur-canvas-alt: #eef2f6;
+  --ur-canvas-deep: #e4eaf1;
+  --ur-surface: #ffffff;
+  --ur-surface-raised: #fbfcfd;
+
+  --ur-ink: #17212b;
+  --ur-ink-secondary: #2f3d4a;
+  --ur-muted: #61707d;
+
+  --ur-rule: #d8e0e8;
+  --ur-rule-strong: #b6c4d1;
+
+  --ur-white: #ffffff;
+  --ur-open: #1c6b4a;
+  --ur-restricted: #9a3324;
+
+  // --- 2. Semantic tokens --------------------------------------------------
+  --unified-bg: var(--ur-canvas);
+  --unified-bg-alt: var(--ur-canvas-alt);
+  --unified-bg-deep: var(--ur-canvas-deep);
+  --unified-surface: var(--ur-surface);
+  --unified-surface-raised: var(--ur-surface-raised);
+  --unified-surface-inverse: var(--ur-dark);
+
+  --unified-text: var(--ur-ink);
+  --unified-text-secondary: var(--ur-ink-secondary);
+  --unified-muted: var(--ur-muted);
+  --unified-text-inverse: var(--ur-white);
+  --unified-text-inverse-muted: #b9c8d6;
+
+  --unified-primary: var(--ur-primary);
+  --unified-primary-hover: var(--ur-primary-700);
+  --unified-primary-soft: var(--ur-primary-100);
+  --unified-dark: var(--ur-dark);
+
+  --unified-accent: var(--ur-accent);
+  --unified-accent-hover: var(--ur-accent-dark);
+  --unified-accent-soft: var(--ur-accent-soft);
+  --unified-accent-contrast: #ffffff;
+
+  --unified-border: var(--ur-rule);
+  --unified-border-strong: var(--ur-rule-strong);
+
+  --unified-open: var(--ur-open);
+  --unified-restricted: var(--ur-restricted);
+  --unified-focus-ring: var(--ur-accent);
+
+  // --- Typography ---------------------------------------------------------
+  --unified-heading: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --unified-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --unified-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --unified-weight-regular: 400;
+  --unified-weight-medium: 500;
+  --unified-weight-semibold: 600;
+  --unified-weight-bold: 700;
+
+  // Editorial display scale. Fluid so headlines scale without breakpoint jumps.
+  --unified-display: clamp(2.4rem, 1.35rem + 5.2vw, 4.75rem);
+  --unified-h1: clamp(2rem, 1.35rem + 2.9vw, 3.25rem);
+  --unified-h2: clamp(1.6rem, 1.2rem + 1.7vw, 2.4rem);
+  --unified-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --unified-h4: 1.1rem;
+  --unified-lead: clamp(1.02rem, 0.97rem + 0.3vw, 1.2rem);
+  --unified-small: 0.875rem;
+  --unified-micro: 0.75rem;
+
+  --unified-tracking-tight: -0.02em;
+  --unified-tracking-display: -0.03em;
+  --unified-tracking-wide: 0.08em;
+  --unified-tracking-wider: 0.14em;
+
+  --unified-leading-tight: 1.1;
+  --unified-leading-snug: 1.25;
+  --unified-leading-body: 1.65;
+
+  // --- Space (4px base) ---------------------------------------------------
+  --unified-spacing-1: 0.25rem;
+  --unified-spacing-2: 0.5rem;
+  --unified-spacing-3: 0.75rem;
+  --unified-spacing-4: 1rem;
+  --unified-spacing-5: 1.5rem;
+  --unified-spacing-6: 2rem;
+  --unified-spacing-7: 3rem;
+  --unified-spacing-8: 4rem;
+
+  --unified-section-y: clamp(3rem, 2rem + 4.4vw, 6rem);
+  --unified-gutter: clamp(1.1rem, 0.55rem + 2.2vw, 3.25rem);
+  --unified-measure: 68ch;
+
+  // --- Structure ----------------------------------------------------------
+  --unified-radius: 2px;
+  --unified-radius-sm: 2px;
+  --unified-radius-pill: 999px;
+
+  --unified-header-height: 76px;
+  --unified-grid-max: 1320px;
+  --unified-grid-gap: clamp(1.1rem, 0.6rem + 1.8vw, 2rem);
+
+  --unified-shadow-sm: 0 1px 2px rgb(11 41 64 / 6%);
+  --unified-shadow-md: 0 2px 10px rgb(11 41 64 / 8%);
+
+  // --- Motion -------------------------------------------------------------
+  --unified-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --unified-dur-fast: 120ms;
+  --unified-dur: 200ms;
+
+  --unified-focus-ring-width: 3px;
+  --unified-focus-offset: 2px;
+
+  // --- DSpace bridge ------------------------------------------------------
+  // DSpace's own Bootstrap variable equivalents.
+  --bs-primary: var(--unified-primary);
+  --bs-primary-rgb: 18, 59, 93;
+  --bs-link-color: var(--unified-primary);
+  --bs-link-color-rgb: 18, 59, 93;
+  --bs-link-hover-color: var(--unified-primary-hover);
+  --bs-body-color: var(--unified-text);
+  --bs-body-bg: var(--unified-bg);
+  --bs-border-color: var(--unified-border);
+  --header-logo-height: 48px;
+  --header-logo-height-xs: 36px;
+}
+
+// --- 3. DARE bridge --------------------------------------------------------
+// Remap the ancestor theme's tokens onto the Unified palette so inherited DARE
+// components match the Unified identity. Read as: "--dare-X is Unified's X".
+:root {
+  --dare-bg: var(--unified-bg);
+  --dare-bg-subtle: var(--unified-bg-alt);
+  --dare-bg-muted: var(--unified-bg-deep);
+  --dare-surface: var(--unified-surface);
+  --dare-surface-raised: var(--unified-surface-raised);
+  --dare-surface-inverse: var(--unified-surface-inverse);
+
+  --dare-text: var(--unified-text);
+  --dare-text-secondary: var(--unified-text-secondary);
+  --dare-muted: var(--unified-muted);
+  --dare-text-inverse: var(--unified-text-inverse);
+  --dare-text-inverse-muted: var(--unified-text-inverse-muted);
+
+  --dare-navy: var(--unified-primary);
+  --dare-navy-700: var(--ur-primary-700);
+  --dare-navy-600: var(--ur-primary-600);
+  --dare-navy-500: var(--unified-primary);
+
+  --dare-accent: var(--unified-accent);
+  --dare-accent-hover: var(--unified-accent-hover);
+  --dare-accent-subtle: var(--unified-accent-soft);
+  --dare-accent-contrast: var(--unified-accent-contrast);
+
+  // DARE uses this as its "interactive / secondary action" colour.
+  --dare-secondary: var(--unified-primary-hover);
+  --dare-secondary-hover: var(--ur-primary-700);
+  --dare-secondary-subtle: var(--unified-primary-soft);
+
+  --dare-border: var(--unified-border);
+  --dare-border-strong: var(--unified-primary);
+  --dare-border-subtle: var(--unified-bg-alt);
+
+  --dare-open: var(--unified-open);
+  --dare-restricted: var(--unified-restricted);
+  --dare-unknown: var(--unified-muted);
+
+  --dare-heading: var(--unified-heading);
+  --dare-body: var(--unified-body);
+  --dare-mono: var(--unified-mono);
+
+  --dare-weight-regular: var(--unified-weight-regular);
+  --dare-weight-medium: var(--unified-weight-medium);
+  --dare-weight-semibold: var(--unified-weight-semibold);
+  --dare-weight-bold: var(--unified-weight-bold);
+
+  --dare-gutter: var(--unified-gutter);
+  --dare-section-y: var(--unified-section-y);
+  --dare-measure: var(--unified-measure);
+  --dare-grid-max: var(--unified-grid-max);
+  --dare-grid-gap: var(--unified-grid-gap);
+  --dare-header-height: var(--unified-header-height);
+
+  --dare-ease: var(--unified-ease);
+  --dare-dur-fast: var(--unified-dur-fast);
+  --dare-dur: var(--unified-dur);
+}
+
+// =============================================================================
+// Dark mode
+// =============================================================================
+// Three gates, in precedence order:
+//
+//   1. `prefers-color-scheme: dark` — the OS setting. Zero configuration.
+//   2. `[data-theme="dark"]`       — an explicit override, set by the toggle
+//                                    in `shared/unified-theme-toggle`.
+//   3. `[data-theme="light"]`      — pins light even when the OS prefers dark.
+//
+// Gates 2 and 3 are declared after gate 1 at equal specificity for `dark`,
+// and with higher specificity for `light`, so an explicit choice always wins
+// over the OS preference. This is the standard cascade-order trick; it needs
+// no JavaScript to resolve.
+//
+// SCOPE: the token layer only. Every colour a Unified component paints comes
+// from a token, so the remap below re-skins the whole site. Tokens that are
+// deliberately *not* remapped, and why:
+//
+//   --unified-accent       #C79A3B on #0B1E2E is 6.4:1 — still AA for body
+//                          text, so the accent keeps its identity.
+//   --ur-primary           #123B5D on a dark ground is 2.1:1 and must never be
+//                          used as ink in dark mode. Components therefore read
+//                          --unified-primary-ink, which *is* remapped. This is
+//                          the one place a naive dark mode silently fails, so
+//                          it is called out in the token names themselves.
+// =============================================================================
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --ur-primary: #7fb2dd;
+    --ur-primary-700: #a8cbe8;
+    --ur-primary-600: #5b9ccc;
+    --ur-primary-100: #14324c;
+
+    --ur-dark: #071d2e;
+    --ur-dark-800: #04121e;
+
+    --ur-accent: #e0b45c;
+    --ur-accent-dark: #eec97f;
+    --ur-accent-soft: #33290f;
+
+    --ur-canvas: #0b1e2e;
+    --ur-canvas-alt: #10263a;
+    --ur-canvas-deep: #16304a;
+    --ur-surface: #132b3f;
+    --ur-surface-raised: #17324a;
+
+    --ur-ink: #e8eef4;
+    --ur-ink-secondary: #c3d0dc;
+    --ur-muted: #9aabbb;
+
+    --ur-rule: #2a4358;
+    --ur-rule-strong: #3b5a74;
+
+    --ur-white: #ffffff;
+    --ur-open: #5fbf95;
+    --ur-restricted: #e08c7c;
+
+    --unified-text-inverse: #0b1e2e;
+    --unified-text-inverse-muted: #6d8296;
+
+    --unified-primary-ink: var(--ur-primary);
+    --unified-primary-ink-hover: var(--ur-primary-700);
+
+    --unified-accent-contrast: #10202f;
+    --unified-border-strong: var(--ur-rule-strong);
+    --unified-focus-ring: #8fc5f0;
+
+    --unified-shadow-sm: 0 1px 2px rgb(0 0 0 / 45%);
+    --unified-shadow-md: 0 2px 12px rgb(0 0 0 / 50%);
+
+    --bs-body-bg: var(--unified-bg);
+    --bs-body-color: var(--unified-text);
+    --bs-border-color: var(--unified-border);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ur-primary: #7fb2dd;
+  --ur-primary-700: #a8cbe8;
+  --ur-primary-600: #5b9ccc;
+  --ur-primary-100: #14324c;
+
+  --ur-dark: #071d2e;
+  --ur-dark-800: #04121e;
+
+  --ur-accent: #e0b45c;
+  --ur-accent-dark: #eec97f;
+  --ur-accent-soft: #33290f;
+
+  --ur-canvas: #0b1e2e;
+  --ur-canvas-alt: #10263a;
+  --ur-canvas-deep: #16304a;
+  --ur-surface: #132b3f;
+  --ur-surface-raised: #17324a;
+
+  --ur-ink: #e8eef4;
+  --ur-ink-secondary: #c3d0dc;
+  --ur-muted: #9aabbb;
+
+  --ur-rule: #2a4358;
+  --ur-rule-strong: #3b5a74;
+
+  --ur-white: #ffffff;
+  --ur-open: #5fbf95;
+  --ur-restricted: #e08c7c;
+
+  --unified-text-inverse: #0b1e2e;
+  --unified-text-inverse-muted: #6d8296;
+
+  --unified-primary-ink: var(--ur-primary);
+  --unified-primary-ink-hover: var(--ur-primary-700);
+
+  --unified-accent-contrast: #10202f;
+  --unified-border-strong: var(--ur-rule-strong);
+  --unified-focus-ring: #8fc5f0;
+
+  --unified-shadow-sm: 0 1px 2px rgb(0 0 0 / 45%);
+  --unified-shadow-md: 0 2px 12px rgb(0 0 0 / 50%);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --ur-primary: #123b5d;
+  --ur-primary-700: #0d2f4b;
+  --ur-primary-600: #17496f;
+  --ur-primary-100: #e7eef4;
+
+  --ur-dark: #0b2940;
+  --ur-dark-800: #071d2e;
+
+  --ur-accent: #c79a3b;
+  --ur-accent-dark: #a67d28;
+  --ur-accent-soft: #f7efdd;
+
+  --ur-canvas: #f6f8fa;
+  --ur-canvas-alt: #eef2f6;
+  --ur-canvas-deep: #e4eaf1;
+  --ur-surface: #ffffff;
+  --ur-surface-raised: #fbfcfd;
+
+  --ur-ink: #17212b;
+  --ur-ink-secondary: #2f3d4a;
+  --ur-muted: #61707d;
+
+  --ur-rule: #d8e0e8;
+  --ur-rule-strong: #b6c4d1;
+
+  --ur-open: #1c6b4a;
+  --ur-restricted: #9a3324;
+
+  --unified-text-inverse: #ffffff;
+  --unified-text-inverse-muted: #b9c8d6;
+
+  --unified-primary-ink: var(--ur-primary);
+  --unified-primary-ink-hover: var(--ur-primary-700);
+
+  --unified-accent-contrast: #ffffff;
+  --unified-focus-ring: var(--ur-accent);
+}
+
+// Light-mode defaults for the two ink tokens the dark blocks remap. Declared
+// after the dark blocks so `prefers-color-scheme: dark` still wins for them.
+:root {
+  --unified-primary-ink: var(--ur-primary);
+  --unified-primary-ink-hover: var(--ur-primary-700);
+}
+
+// Reduced motion. Set both durations to zero rather than relying on each
+// animation to opt out, so a future component cannot accidentally ignore it.
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --unified-dur-fast: 0ms;
+    --unified-dur: 0ms;
+    --dare-dur-fast: 0ms;
+    --dare-dur: 0ms;
+  }
+}

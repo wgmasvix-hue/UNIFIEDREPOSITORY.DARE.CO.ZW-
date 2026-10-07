@@ -1,0 +1,196 @@
+// =============================================================================
+// DARE Repository — Search page styling
+// =============================================================================
+// Search keeps DSpace's own components end to end. The query string, the facet
+// sidebar, sorting, pagination and CSV export all live in SearchService and the
+// router, so no DSpace query parameter is touched here. This layer changes
+// presentation only.
+//
+// The DOM that actually gets rendered (verified against the running preview):
+//
+//   ds-search-results
+//     h1
+//     ds-viewable-collection > ds-object-list > ds-pagination
+//       ul.list-unstyled > li.mt-4.mb-4.d-flex      <- one per result
+//         ds-listable-object-component-loader
+//           ds-item-search-result-list-element > div.row
+//             a.item-list-title                      <- record title
+//             .item-list-publisher / .item-list-date / .item-list-authors
+//             .item-list-abstract                   <- snippet
+//   #search-page-sidebar-content                     <- facet sidebar
+//   #search-content                                   <- results column
+//
+// Selectors below are taken from that structure rather than guessed.
+// =============================================================================
+
+// --- Layout ------------------------------------------------------------------
+// DSpace's sidebar wrapper nests the page in its own fixed-width `.container`;
+// widen it so the results column gets a real measure.
+#search-content {
+  min-width: 0;
+}
+
+ds-search-results {
+  display: block;
+}
+
+ds-viewable-collection,
+ds-object-list {
+  display: block;
+}
+
+// --- Results heading ---------------------------------------------------------
+ds-search-results h1 {
+  margin: 0 0 var(--dare-spacing-5);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h1);
+  font-weight: var(--dare-weight-bold);
+  line-height: var(--dare-leading-snug);
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-text);
+}
+
+// The result count is the most useful fact on the page; promote it.
+#search-content .pagination,
+#search-content ds-pagination {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-small);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+  color: var(--dare-accent);
+}
+
+// --- Result list -------------------------------------------------------------
+// Turn the list into a ruled editorial index: each record separated by a
+// hairline rather than a card, so long result pages scan quickly.
+#search-content ul.list-unstyled {
+  margin: 0;
+  padding: 0;
+}
+
+#search-content ul.list-unstyled > li {
+  padding-block: var(--dare-spacing-4);
+  margin-block: 0;
+  border-bottom: 1px solid var(--dare-border-subtle);
+}
+
+// --- Record title -------------------------------------------------------------
+#search-content .item-list-title {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h4);
+  font-weight: var(--dare-weight-semibold);
+  line-height: 1.28;
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-text);
+  text-decoration: none;
+  transition: color var(--dare-dur) var(--dare-ease);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-accent);
+    text-decoration: underline;
+  }
+}
+
+// --- Byline: authors, date, publisher ------------------------------------------
+#search-content .item-list-authors,
+#search-content .item-list-date,
+#search-content .item-list-publisher,
+#search-content .text-muted {
+  font-family: var(--dare-body);
+  font-size: var(--dare-small);
+  color: var(--dare-muted);
+}
+
+// --- Snippet -------------------------------------------------------------------
+#search-content .item-list-abstract {
+  margin-top: var(--dare-spacing-2);
+  max-width: var(--dare-measure);
+  font-size: var(--dare-small);
+  line-height: 1.55;
+  color: var(--dare-text-secondary);
+}
+
+// --- Thumbnails ------------------------------------------------------------------
+#search-content ds-thumbnail img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--dare-border-subtle);
+}
+
+// --- Facet sidebar ----------------------------------------------------------------
+// DSpace gives it id="<pageId>-sidebar-content", i.e. #search-page-sidebar-content.
+#search-page-sidebar-content {
+  border-top: 3px solid var(--dare-accent);
+  padding-top: var(--dare-spacing-4);
+
+  h3,
+  .h4 {
+    font-family: var(--dare-heading);
+    font-size: var(--dare-micro);
+    font-weight: var(--dare-weight-bold);
+    letter-spacing: var(--dare-tracking-wider);
+    text-transform: uppercase;
+    color: var(--dare-text);
+  }
+
+  .list-group-item {
+    background: transparent;
+    border-color: var(--dare-border-subtle);
+    font-size: var(--dare-small);
+  }
+
+  .filter,
+  .badge {
+    border-radius: 0;
+    background: transparent;
+    border: 1px solid var(--dare-border);
+    font-size: var(--dare-micro);
+    color: var(--dare-text-secondary);
+  }
+
+  .filter a,
+  .filter .close {
+    color: var(--dare-accent);
+  }
+}
+
+// --- Pagination and sort -----------------------------------------------------------
+#search-content .pagination {
+  margin-top: var(--dare-spacing-6);
+}
+
+#search-content .page-link {
+  border-radius: 0;
+  border-color: var(--dare-border);
+  color: var(--dare-text-secondary);
+  font-family: var(--dare-heading);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dare-bg-subtle);
+    border-color: var(--dare-accent);
+    color: var(--dare-accent);
+  }
+}
+
+#search-content .page-item.active .page-link {
+  background: var(--dare-navy);
+  border-color: var(--dare-navy);
+  color: var(--dare-text-inverse);
+}
+
+// --- Responsive ---------------------------------------------------------------------
+@include media-breakpoint-down(md) {
+  #search-results-count,
+  #search-content .item-list-title {
+    font-size: 1.05rem;
+  }
+
+  // DSpace hides the facet sidebar behind a "filters" button on small screens.
+  // Keep that behaviour; only tighten the record spacing.
+  #search-content ul.list-unstyled > li {
+    padding-block: var(--dare-spacing-3);
+  }
+}

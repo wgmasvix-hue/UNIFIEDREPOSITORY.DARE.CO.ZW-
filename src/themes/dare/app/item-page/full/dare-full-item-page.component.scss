@@ -1,0 +1,308 @@
+// DARE scholarly item page ---------------------------------------------------
+// Editorial, print-inspired record. Hairline rules and generous leading instead
+// of cards and shadows: a publication page should look like a well-set article,
+// not a dashboard widget. No border-radius anywhere, matching the design system.
+
+.dare-item {
+  padding-block: var(--dare-spacing-6) var(--dare-spacing-8);
+}
+
+.dare-item__record {
+  max-width: var(--dare-grid-max);
+  margin-inline: auto;
+  padding-inline: var(--dare-gutter);
+}
+
+// --- Headline --------------------------------------------------------------
+.dare-item__headline {
+  padding-bottom: var(--dare-spacing-5);
+  border-bottom: 2px solid var(--dare-border-strong);
+  margin-bottom: var(--dare-spacing-6);
+}
+
+.dare-item__headline-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--dare-spacing-3);
+  margin-bottom: var(--dare-spacing-3);
+}
+
+.dare-item__spacer {
+  flex: 1 1 auto;
+}
+
+// Document type reads as a stamped label on the record.
+.dare-item__type {
+  margin: 0;
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wider);
+  text-transform: uppercase;
+  color: var(--dare-accent);
+}
+
+.dare-item__title {
+  margin: 0;
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h1);
+  font-weight: var(--dare-weight-bold);
+  line-height: var(--dare-leading-snug);
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-text);
+  text-wrap: balance;
+}
+
+.dare-item__authors {
+  margin: var(--dare-spacing-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-item__author {
+  font-family: var(--dare-heading);
+  font-size: var(--dare-lead);
+  font-weight: var(--dare-weight-medium);
+  line-height: 1.4;
+  color: var(--dare-text-secondary);
+}
+
+.dare-item__provenance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dare-spacing-2) var(--dare-spacing-6);
+  margin: var(--dare-spacing-4) 0 0;
+}
+
+.dare-item__provenance-pair {
+  display: flex;
+  align-items: baseline;
+  gap: var(--dare-spacing-2);
+  min-width: 0;
+
+  dt {
+    font-size: var(--dare-micro);
+    font-weight: var(--dare-weight-semibold);
+    letter-spacing: var(--dare-tracking-wide);
+    text-transform: uppercase;
+    color: var(--dare-muted);
+  }
+
+  dd {
+    margin: 0;
+    font-size: var(--dare-small);
+    color: var(--dare-text-secondary);
+  }
+}
+
+.dare-item__handle {
+  font-family: var(--dare-mono);
+  font-size: 0.8rem;
+  color: var(--dare-text-secondary);
+  word-break: break-all;
+}
+
+// --- Body columns ----------------------------------------------------------
+.dare-item__columns {
+  display: grid;
+  // Main record first and wider; files hang in a narrower right rail.
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+  gap: var(--dare-grid-gap);
+  align-items: start;
+}
+
+.dare-item__main {
+  min-width: 0;
+}
+
+.dare-item__aside {
+  min-width: 0;
+  padding: var(--dare-spacing-5);
+  background: var(--dare-bg-subtle);
+  border-top: 3px solid var(--dare-accent);
+}
+
+// --- Sections --------------------------------------------------------------
+.dare-item__section {
+  padding-bottom: var(--dare-spacing-6);
+  margin-bottom: var(--dare-spacing-6);
+  border-bottom: 1px solid var(--dare-border-subtle);
+}
+
+.dare-item__section:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.dare-item__section-heading {
+  margin: 0 0 var(--dare-spacing-3);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-bold);
+  letter-spacing: var(--dare-tracking-wider);
+  text-transform: uppercase;
+  color: var(--dare-text);
+}
+
+.dare-item__abstract {
+  max-width: var(--dare-measure);
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: var(--dare-leading-body);
+  color: var(--dare-text-secondary);
+}
+
+// --- Subjects --------------------------------------------------------------
+.dare-item__subjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dare-spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-item__subject-link {
+  display: inline-block;
+  padding: var(--dare-spacing-1) var(--dare-spacing-3);
+  font-size: var(--dare-micro);
+  letter-spacing: 0.02em;
+  color: var(--dare-secondary);
+  text-decoration: none;
+  border: 1px solid var(--dare-border);
+  transition: border-color var(--dare-dur) var(--dare-ease),
+    color var(--dare-dur) var(--dare-ease);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-secondary-hover);
+    border-color: var(--dare-secondary);
+  }
+}
+
+// --- Identifiers -----------------------------------------------------------
+.dare-item__identifier-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dare-item__identifier-list li + li {
+  margin-top: var(--dare-spacing-2);
+}
+
+.dare-item__identifier {
+  font-family: var(--dare-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--dare-text-secondary);
+  word-break: break-all;
+}
+
+a.dare-item__identifier {
+  color: var(--dare-secondary);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-secondary-hover);
+    text-decoration: underline;
+  }
+}
+
+// --- Citation --------------------------------------------------------------
+.dare-item__citation {
+  margin: 0;
+  padding: var(--dare-spacing-4) 0 var(--dare-spacing-4) var(--dare-spacing-4);
+  max-width: var(--dare-measure);
+  font-family: var(--dare-body);
+  font-size: var(--dare-small);
+  line-height: 1.6;
+  color: var(--dare-text-secondary);
+  border-left: 3px solid var(--dare-accent);
+  // Selectable so it can be copied without a button.
+  user-select: text;
+}
+
+// --- Facts list (rights / source) ------------------------------------------
+.dare-item__facts {
+  margin: 0;
+}
+
+.dare-item__fact {
+  display: grid;
+  // Fixed label column keeps the values aligned down the page.
+  grid-template-columns: minmax(7rem, 12rem) minmax(0, 1fr);
+  gap: var(--dare-spacing-2) var(--dare-spacing-4);
+  padding-block: var(--dare-spacing-2);
+  border-top: 1px solid var(--dare-border-subtle);
+}
+
+.dare-item__fact:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.dare-item__fact dt {
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+  color: var(--dare-muted);
+}
+
+.dare-item__fact dd {
+  margin: 0;
+  min-width: 0;
+}
+
+.dare-item__fact-value {
+  display: block;
+  font-size: var(--dare-small);
+  line-height: 1.5;
+  color: var(--dare-text-secondary);
+  word-break: break-word;
+}
+
+// --- Versions and view links ------------------------------------------------
+.dare-item__versions {
+  margin-top: var(--dare-spacing-6);
+  padding-top: var(--dare-spacing-5);
+  border-top: 1px solid var(--dare-border);
+}
+
+.dare-item__viewlinks {
+  margin-top: var(--dare-spacing-5);
+}
+
+// --- Responsive -------------------------------------------------------------
+// One column below lg: the file rail follows the record in source order, which
+// is the order a reader meets it on a phone.
+@include media-breakpoint-down(lg) {
+  .dare-item__columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dare-item__aside {
+    order: -1;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .dare-item__provenance {
+    gap: var(--dare-spacing-2) var(--dare-spacing-4);
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dare-item {
+    padding-block: var(--dare-spacing-5) var(--dare-spacing-7);
+  }
+
+  // A two-column fact grid cannot hold a value at 320px without forcing a
+  // horizontal scroll, so the label stacks above its value.
+  .dare-item__fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--dare-spacing-1);
+  }
+}

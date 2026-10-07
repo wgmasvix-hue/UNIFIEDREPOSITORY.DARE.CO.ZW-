@@ -42,7 +42,13 @@
       </header>
 
 
-      <div class="librarian-body">
+      <div
+        class="librarian-body"
+        #librarianBody
+        role="log"
+        aria-live="polite"
+        aria-label="Conversation with the DARE Librarian"
+      >
 
         @for (message of messages; track $index) {
 
@@ -52,9 +58,17 @@
             [class.assistant-message]="message.role === 'assistant'"
           >
 
-            <div class="message-content">
-              {{ message.content }}
-            </div>
+            @if (message.role === 'assistant') {
+              <!-- Rendered Markdown (sanitized in the component). Falls back
+                   to plain text if the parser failed to load. -->
+              @if (message.html) {
+                <div class="message-content" [innerHTML]="message.html"></div>
+              } @else {
+                <div class="message-content">{{ message.content }}</div>
+              }
+            } @else {
+              <div class="message-content">{{ message.content }}</div>
+            }
 
             @if (message.sources?.length) {
 
@@ -80,6 +94,31 @@
                         {{ source.title || 'DARE repository record' }}
                       </span>
                     </a>
+
+                  } @else if (sourceRoute(source)) {
+
+                    <!-- No absolute URI from the backend: stay in-app via the
+                         item route rather than dropping the record. -->
+                    <a
+                      class="source"
+                      [routerLink]="sourceRoute(source)"
+                    >
+                      <span class="source-icon">→</span>
+
+                      <span>
+                        {{ source.title || 'DARE repository record' }}
+                      </span>
+                    </a>
+
+                  } @else {
+
+                    <span class="source source--text">
+                      <span class="source-icon">•</span>
+
+                      <span>
+                        {{ source.title || 'DARE repository record' }}
+                      </span>
+                    </span>
 
                   }
 
@@ -110,7 +149,7 @@
         }
 
 
-        @if (messages.length === 1 && !loading) {
+        @if ((messages.length === 1 || failed) && !loading) {
 
           <div class="suggestions">
 

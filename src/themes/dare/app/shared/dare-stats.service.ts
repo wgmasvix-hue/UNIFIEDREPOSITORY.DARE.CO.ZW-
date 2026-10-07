@@ -1,17 +1,17 @@
 import {
-  Injectable,
   inject,
+  Injectable,
 } from '@angular/core';
 import {
-  Observable,
   forkJoin,
+  Observable,
   of,
 } from 'rxjs';
 import {
   catchError,
   map,
+  switchMap,
 } from 'rxjs/operators';
-
 import { environment } from 'src/environments/environment';
 
 import { DspaceRestService } from '../../../../app/core/dspace-rest/dspace-rest.service';
@@ -49,6 +49,12 @@ export interface DareCommunitySummary {
   name: string;
   handle: string;
   description: string;
+  /**
+   * Number of items deposited in the community, or `null` when DSpace did not
+   * report one. Never substituted with `0`: "no items" and "count unavailable"
+   * are different statements and the UI must not conflate them.
+   */
+  itemCount: number | null;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -127,22 +133,70 @@ export class DareStatsService {
   /**
    * Top-level communities, ordered by the repository's own listing.
    * These are the "institutions and research areas" shown in the editorial grid.
+   *
+   * Each community is requested individually so its item count can be reported.
+   * A per-community failure costs only that row's count, never the whole list.
    */
   getCommunities(limit = 12): Observable<DareCommunitySummary[]> {
     return this.rest
       .get(this.hal('core/communities', { size: String(limit) }))
       .pipe(
-        map((res) => {
+        switchMap((res) => {
           const list = res.payload?._embedded?.communities ?? [];
-          return list.map((c: any) => ({
-            uuid: c.uuid,
-            handle: c.handle,
-            name: c.name ?? 'Untitled community',
-            description: this.first(c, 'dc.description.abstract') ?? '',
-          }));
+          if (!Array.isArray(list) || list.length === 0) {
+            return of([] as DareCommunitySummary[]);
+          }
+          return forkJoin(list.map((c: any) => this.mapCommunity(c)));
         }),
         catchError(() => of([] as DareCommunitySummary[])),
       );
+  }
+
+  /**
+   * Number of published items inside a community.
+   *
+   * DSpace's HAL community objects carry `archivedItemsCount`, but this
+   * installation has the counter disabled and the API reports `-1` for it,
+   * which means "unknown", not "none". `-1` is therefore discarded and the
+   * count is read from the search index scoped to the community instead. That
+   * query is authoritative because it counts what a visitor can actually find.
+   */
+  protected getCommunityItemCount(community: any): Observable<number | null> {
+    const stored = community?.archivedItemsCount;
+    if (typeof stored === 'number' && Number.isInteger(stored) && stored >= 0) {
+      return of(stored);
+    }
+    const uuid = community?.uuid;
+    if (typeof uuid !== 'string' || uuid.length === 0) {
+      return of(null);
+    }
+    return this.rest
+      .get(this.discover('objects', {
+        dsoType: 'ITEM',
+        scope: uuid,
+        configuration: 'default',
+        size: '1',
+      }))
+      .pipe(
+        map((res) => {
+          const total = res.payload?._embedded?.searchResult?.page?.totalElements;
+          return typeof total === 'number' ? total : null;
+        }),
+        catchError(() => of(null)),
+      );
+  }
+
+  /** Map one HAL community object to the render-safe projection. */
+  protected mapCommunity(c: any): Observable<DareCommunitySummary> {
+    return this.getCommunityItemCount(c).pipe(
+      map((itemCount) => ({
+        uuid: c.uuid,
+        handle: c.handle,
+        name: c.name ?? 'Untitled community',
+        description: this.first(c, 'dc.description.abstract') ?? '',
+        itemCount,
+      })),
+    );
   }
 
   /**
@@ -210,11 +264,78 @@ export class DareStatsService {
         uuid: io.uuid,
         handle: io.handle,
         title: this.first(io, 'dc.title') ?? 'Untitled',
-        authors: this.all(io, 'dc.contributor.author'),
-        date: this.first(io, 'dc.date.issued') ?? '',
+        authors: this.authors(io),
+        date: this.first(io, 'dc.date.issued') ?? this.first(io, 'dc.date') ?? '',
         type: this.first(io, 'dc.type') ?? '',
-        abstract: this.first(io, 'dc.description.abstract') ?? '',
+        abstract: this.abstract(io),
       }));
+  }
+
+  /**
+   * Author names for an item.
+   *
+   * DARE's index is heterogeneous: some deposits carry `dc.contributor.author`
+   * (the DSpace default for `publication`) while others carry only `dc.creator`
+   * (typical of records harvested from Zenodo, DataCite and similar). Reading a
+   * single field silently reports "Author not recorded" for a large share of the
+   * repository, so both are read, de-duplicated, and ordered with the DSpace
+   * default field first.
+   */
+  protected authors(io: any): string[] {
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const key of ['dc.contributor.author', 'dc.creator']) {
+      for (const name of this.all(io, key)) {
+        const clean = this.stripMarkup(name);
+        if (clean.length === 0 || seen.has(clean.toLowerCase())) {
+          continue;
+        }
+        seen.add(clean.toLowerCase());
+        out.push(clean);
+      }
+    }
+    return out;
+  }
+
+  /**
+   * Abstract text for an item.
+   *
+   * Deposits use `dc.description.abstract` where the submitter followed the
+   * DSpace form, and a bare `dc.description` otherwise. Some harvested values
+   * arrive as HTML, which must not reach the page as markup.
+   */
+  protected abstract(io: any): string {
+    for (const key of ['dc.description.abstract', 'dc.description']) {
+      const value = this.first(io, key);
+      const clean = value === null ? '' : this.stripMarkup(value);
+      if (clean.length > 0) {
+        return clean;
+      }
+    }
+    return '';
+  }
+
+  /**
+   * Flatten an HTML-bearing metadata value to readable plain text.
+   *
+   * Harvested records put markup in `dc.description` and `dc.contributor`
+   * values. Rendering that unescaped would inject foreign markup into the page,
+   * so tags are removed and the handful of entities that actually carry meaning
+   * in an abstract are decoded.
+   */
+  protected stripMarkup(value: string): string {
+    return value
+      .replace(/<br\s*\/?>/gi, ' ')
+      .replace(/<\/p>/gi, ' ')
+      .replace(/<[^>]*>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   /** First value of a Dublin Core field, or null. */

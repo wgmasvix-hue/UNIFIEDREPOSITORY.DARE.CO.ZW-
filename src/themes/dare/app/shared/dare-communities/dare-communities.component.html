@@ -27,7 +27,16 @@
                   {{ excerpt(community.description) }}
                 </span>
               }
-              <span class="dare-communities__cta" aria-hidden="true">Visit &rarr;</span>
+              <span class="dare-communities__foot">
+                <span class="dare-communities__count">
+                  @if (community.itemCount !== null) {
+                    {{ community.itemCount }} {{ community.itemCount === 1 ? 'item' : 'items' }}
+                  } @else {
+                    <span class="dare-communities__count-unknown">Count unavailable</span>
+                  }
+                </span>
+                <span class="dare-communities__cta" aria-hidden="true">Visit &rarr;</span>
+              </span>
             </a>
           </li>
         }

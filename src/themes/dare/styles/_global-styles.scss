@@ -1,239 +1,133 @@
 /*
- * DARE UnifiedRepository
- * Global application theme
+ * DARE UnifiedRepository — theme compatibility layer
+ * =============================================================================
+ * Loaded last (see theme.scss step 6), so anything declared here wins over the
+ * design system. That makes this file the most dangerous one in the theme: it
+ * must never re-declare a `--dare-*` token, or it silently overrides
+ * _dare-tokens.scss.
+ *
+ * Its only jobs are:
+ *   1. Map DSpace's Bootstrap-based core widgets onto the DARE tokens, so
+ *      inherited components (pagination, tables, form controls, buttons) match
+ *      the editorial layer without being rewritten.
+ *   2. Preserve genuine bug fixes inherited from the previous DARE theme.
+ *
+ * Explicitly NOT here: brand colours, radii, shadows, or gradients. Those live
+ * in _dare-tokens.scss and are deliberately flat and square.
+ * =============================================================================
  */
 
-:root {
-  --dare-navy: #071b33;
-  --dare-navy-light: #0b3154;
-  --dare-teal: #0d6b62;
-  --dare-teal-light: #16856f;
-  --dare-green: #2f8f46;
-  --dare-gold: #e5b93f;
-  --dare-red: #c94b45;
+// --- DSpace core widget mapping --------------------------------------------
+// Scoped to the components DSpace renders, so nothing here can leak onto the
+// editorial pages, which style themselves.
 
-  --dare-white: #ffffff;
-  --dare-background: #f8fafc;
-  --dare-surface: #ffffff;
-
-  --dare-text: #172033;
-  --dare-muted: #667085;
-  --dare-border: #e4e7ec;
-
-  --dare-radius: 10px;
-  --dare-radius-lg: 16px;
-  --dare-shadow:
-    0 4px 18px rgba(7, 27, 51, 0.08);
-  --dare-shadow-hover:
-    0 10px 30px rgba(7, 27, 51, 0.14);
+.btn {
+  border-radius: 0;
+  font-family: var(--dare-heading);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: 0.02em;
 }
 
-/* Application background */
-body {
-  background: var(--dare-background);
-  color: var(--dare-text);
-}
-
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--dare-navy);
-  font-weight: 700;
-}
-
-a {
-  color: var(--dare-teal);
-  transition:
-    color 0.18s ease,
-    background-color 0.18s ease;
-}
-
-a:hover {
-  color: var(--dare-teal-light);
-}
-
-/* Buttons */
 .btn-primary {
-  background-color: var(--dare-teal);
-  border-color: var(--dare-teal);
-  border-radius: 7px;
-  font-weight: 600;
-}
+  background-color: var(--dare-secondary);
+  border-color: var(--dare-secondary);
+  color: var(--dare-text-inverse);
 
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: var(--dare-teal-light);
-  border-color: var(--dare-teal-light);
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background-color: var(--dare-secondary-hover);
+    border-color: var(--dare-secondary-hover);
+    color: var(--dare-text-inverse);
+  }
 }
 
 .btn-secondary {
   background-color: var(--dare-navy);
   border-color: var(--dare-navy);
-  border-radius: 7px;
-  font-weight: 600;
 }
 
-.btn-secondary:hover,
-.btn-secondary:focus {
-  background-color: var(--dare-navy-light);
-  border-color: var(--dare-navy-light);
+.btn-outline-primary {
+  border-color: var(--dare-secondary);
+  color: var(--dare-secondary);
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background-color: var(--dare-secondary);
+    border-color: var(--dare-secondary);
+    color: var(--dare-text-inverse);
+  }
 }
 
-/* Cards */
-.card {
-  border: 1px solid var(--dare-border);
-  border-radius: var(--dare-radius);
-  box-shadow: var(--dare-shadow);
-}
-
-.card:hover {
-  box-shadow: var(--dare-shadow-hover);
-}
-
-/* Form controls */
 .form-control,
 .form-select {
+  border-radius: 0;
   border-color: var(--dare-border);
-  border-radius: 7px;
-  color: var(--dare-text);
+
+  &:focus,
+  &:focus-visible {
+    border-color: var(--dare-secondary);
+    box-shadow: 0 0 0 3px var(--dare-secondary-subtle);
+  }
 }
 
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--dare-teal);
-  box-shadow: 0 0 0 0.2rem rgba(13, 107, 98, 0.14);
-}
-
-/* Badges */
-.badge {
-  border-radius: 999px;
-}
-
-/* Tables */
 .table {
   color: var(--dare-text);
+
+  thead th {
+    background: var(--dare-navy);
+    color: var(--dare-text-inverse);
+    border-color: var(--dare-navy);
+    font-family: var(--dare-heading);
+    letter-spacing: var(--dare-tracking-wide);
+  }
 }
 
-.table thead th {
-  background: var(--dare-navy);
-  color: #ffffff;
-  border-color: var(--dare-navy);
+// DSpace pagers and result counts are Bootstrap pills; flatten them so they do
+// not read as consumer-site chips.
+.page-link,
+.badge {
+  border-radius: 0;
 }
 
-/* Alerts */
-.alert {
-  border-radius: var(--dare-radius);
+// Cards are used by a few DSpace widgets (search scope, browse facets). Keep
+// them flat: a hairline, no shadow.
+.card {
+  border: 1px solid var(--dare-border);
+  border-radius: 0;
+  box-shadow: none;
 }
 
-/* Repository content surfaces */
-.ds-item-page,
-.ds-community-page,
-.ds-collection-page,
-.ds-search-page {
+::selection {
+  background: var(--dare-accent-subtle);
   color: var(--dare-text);
 }
 
-/* Selection */
-::selection {
-  background: rgba(13, 107, 98, 0.2);
-  color: var(--dare-navy);
-}
-
-/* Zimbabwe-inspired accent line */
-.dare-accent-line {
-  height: 4px;
-  width: 72px;
-  margin: 0.75rem 0 1.25rem;
-  background: linear-gradient(
-    90deg,
-    var(--dare-green) 0 35%,
-    var(--dare-gold) 35% 70%,
-    var(--dare-red) 70% 100%
-  );
-  border-radius: 999px;
-}
-
-/* Accessible focus */
-:focus-visible {
-  outline: 2px solid var(--dare-teal);
-  outline-offset: 3px;
-}
-
-/* DARE mobile breadcrumb fix */
+// --- Mobile breadcrumb -------------------------------------------------------
+// Inherited from the previous DARE theme and kept deliberately: DSpace's
+// breadcrumb wraps to a second line and, at narrow widths, pushed the page
+// wider than the viewport. A single scrollable row is both narrower and the
+// expected mobile pattern.
+//
+// Verified with Cypress scrollWidth assertions at 320/375/390/430/768px.
 @media (max-width: 767.98px) {
   .nav-breadcrumb {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .nav-breadcrumb .breadcrumb {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 4px 0;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    margin: 0;
-    padding: 10px 14px;
-    overflow: hidden;
-  }
-
-  .nav-breadcrumb .breadcrumb-item {
-    min-width: 0;
-    max-width: 46vw;
-    overflow: hidden;
-    flex: 0 1 auto;
-  }
-
-  .nav-breadcrumb .breadcrumb-item-limiter {
-    display: block;
-    min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  .nav-breadcrumb .breadcrumb-item-limiter > * {
-    display: block;
-    min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .nav-breadcrumb .breadcrumb-item.active {
-    max-width: 58vw;
-  }
-
-  .nav-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
-    padding-right: 6px;
-    padding-left: 6px;
-  }
-}
-
-/* DARE — final mobile breadcrumb layout */
-@media (max-width: 767.98px) {
-  .nav-breadcrumb {
-    width: 100%;
-    overflow: hidden;
     position: relative;
+    width: 100%;
+    overflow: hidden;
   }
 
   .nav-breadcrumb .breadcrumb {
     display: flex !important;
     flex-wrap: nowrap !important;
     align-items: center;
+    gap: 0;
     width: 100%;
     max-width: 100%;
     min-width: 0;
     margin: 0;
-    padding: 9px 14px;
-    gap: 0;
+    padding: 9px var(--dare-gutter);
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
@@ -247,7 +141,6 @@ a:hover {
 
   .nav-breadcrumb .breadcrumb-item {
     display: flex !important;
-    align-items: center;
     flex: 0 0 auto !important;
     width: auto;
     max-width: none !important;

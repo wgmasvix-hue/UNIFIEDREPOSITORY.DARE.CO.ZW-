@@ -1,0 +1,239 @@
+// =============================================================================
+// DARE Repository — Item page styling (default "simple" view)
+// =============================================================================
+// /items/:id is DSpace's simple item view. Its template already renders every
+// field the repository needs — title, authors, date, publisher, files, abstract,
+// description, keywords, citation, URI, collections, endorsements, reviews,
+// licence and version history — through working DSpace components.
+//
+// Nothing here replaces that machinery: PDF and bitstream downloads, the media
+// viewer, endorsements and version history all keep functioning exactly as
+// DSpace provides them. This layer only re-presents them.
+//
+// Layout: DSpace splits the record into a 4/6 Bootstrap row with the files on
+// the left. For a scholarly page the descriptive record should lead and the
+// files belong in a rail, so on wide screens the visual order is inverted with
+// `order` (the DOM is untouched, so tab order and screen-reader order stay
+// faithful to the document) and the rail is pinned to the top of the row.
+// =============================================================================
+
+.item-page {
+  max-width: var(--dare-grid-max);
+  margin-inline: auto;
+  padding-inline: var(--dare-gutter);
+  padding-block: var(--dare-spacing-6) var(--dare-spacing-8);
+  color: var(--dare-text);
+}
+
+// DSpace nests this page in its own `.container`; that box is narrower than the
+// DARE grid and would fight the width set above. `.item-page` itself is the
+// element to widen, so the inner container is neutralised rather than resized.
+.item-page > .container {
+  max-width: none;
+  padding-inline: 0;
+}
+
+// --- Title -------------------------------------------------------------------
+.item-page ds-item-page-title-field {
+  display: block;
+  min-width: 0;
+}
+
+.item-page ds-item-page-title-field h1,
+.item-page .item-page-title {
+  margin: 0;
+  font-family: var(--dare-heading);
+  font-size: var(--dare-h1);
+  font-weight: var(--dare-weight-bold);
+  line-height: var(--dare-leading-snug);
+  letter-spacing: var(--dare-tracking-tight);
+  color: var(--dare-text);
+  text-wrap: balance;
+}
+
+.item-page ds-item-page-title-field a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dare-accent);
+  }
+}
+
+// The title row also holds the edit menu; rule it off from the record below.
+.item-page .d-flex.flex-row:first-of-type {
+  align-items: flex-start;
+  gap: var(--dare-spacing-4);
+  padding-bottom: var(--dare-spacing-4);
+  margin-bottom: var(--dare-spacing-5);
+  border-bottom: 2px solid var(--dare-border-strong);
+}
+
+// --- Record grid -------------------------------------------------------------
+.item-page .row {
+  row-gap: var(--dare-spacing-6);
+}
+
+// The descriptive column reads first on a wide screen.
+.item-page .col-12.col-md-6 {
+  order: -1;
+}
+
+// The rail: files, thumbnail and short facts.
+.item-page .col-12.col-md-4 {
+  padding: var(--dare-spacing-5);
+  background: var(--dare-bg-subtle);
+  border-top: 3px solid var(--dare-accent);
+}
+
+// --- Field labels and values --------------------------------------------------
+// DSpace renders every item field through `ds-metadata-values` into
+// `ds-metadata-field-wrapper`, which emits
+//   .simple-view-element > h2.simple-view-element-header + .simple-view-element-body
+// Those are the nodes styled below: a hairline above, an uppercase label and a
+// readable value, so a long record scans as a list of facts.
+.item-page .item-page-field,
+.item-page ds-generic-item-page-field,
+.item-page ds-item-page-abstract-field,
+.item-page ds-item-page-uri-field,
+.item-page ds-item-page-date-field,
+.item-page ds-item-page-collections,
+.item-page ds-metadata-representation-list,
+.item-page ds-item-page-cc-license-field,
+.item-page ds-related-items {
+  display: block;
+  margin: 0;
+}
+
+.item-page .simple-view-element {
+  margin: 0;
+  padding-block: var(--dare-spacing-3);
+  border-top: 1px solid var(--dare-border-subtle);
+}
+
+// First field in a column needs no rule above it.
+.item-page .col-12.col-md-6 > *:first-child .simple-view-element,
+.item-page .col-12.col-md-4 > *:first-child .simple-view-element {
+  border-top: 0;
+  padding-top: 0;
+}
+
+// Labels: small, uppercase, muted — the "stamp" treatment used site-wide.
+.item-page .simple-view-element-header {
+  margin: 0 0 var(--dare-spacing-1);
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-bold);
+  letter-spacing: var(--dare-tracking-wider);
+  text-transform: uppercase;
+  color: var(--dare-muted);
+}
+
+.item-page .simple-view-element-body {
+  font-size: var(--dare-small);
+  line-height: 1.55;
+  color: var(--dare-text-secondary);
+  min-width: 0;
+}
+
+// Values may be long URIs; break them rather than overflow.
+.item-page .simple-view-element-body a {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.item-page .simple-view-element-body .separator {
+  white-space: normal;
+}
+
+// --- Abstract ----------------------------------------------------------------
+// The abstract is the most-read prose on the page: give it a readable measure
+// and more generous leading than the surrounding field list.
+.item-page ds-item-page-abstract-field .simple-view-element {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.item-page ds-item-page-abstract-field .simple-view-element-body {
+  max-width: var(--dare-measure);
+  font-size: 1.02rem;
+  line-height: var(--dare-leading-body);
+  color: var(--dare-text-secondary);
+}
+
+// --- Files ---------------------------------------------------------------------
+.item-page ds-item-page-file-section {
+  display: block;
+
+  .file-section {
+    margin-top: var(--dare-spacing-2);
+  }
+
+  a {
+    font-family: var(--dare-mono);
+    font-size: 0.82rem;
+    color: var(--dare-secondary);
+    text-decoration: none;
+    word-break: break-all;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--dare-secondary-hover);
+      text-decoration: underline;
+    }
+  }
+}
+
+// --- Thumbnail -------------------------------------------------------------------
+.item-page ds-thumbnail img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--dare-border-subtle);
+}
+
+// --- Cross-links (collections, endorsements, reviews) -----------------------------
+// These render as trailing URI lists. They are provenance, not content, so keep
+// them visually subordinate.
+.item-page ds-item-page-collections .simple-view-element-body,
+.item-page ds-item-page-uri-field .simple-view-element-body {
+  font-size: var(--dare-small);
+}
+
+// --- "Full item page" link --------------------------------------------------------
+.item-page .btn-outline-primary {
+  margin-top: var(--dare-spacing-5);
+  border-radius: 0;
+  font-family: var(--dare-heading);
+  font-size: var(--dare-micro);
+  font-weight: var(--dare-weight-semibold);
+  letter-spacing: var(--dare-tracking-wide);
+  text-transform: uppercase;
+}
+
+// --- Version history ----------------------------------------------------------------
+.item-page ds-item-versions {
+  display: block;
+  margin-top: var(--dare-spacing-7);
+  padding-top: var(--dare-spacing-5);
+  border-top: 1px solid var(--dare-border);
+}
+
+// --- Responsive ---------------------------------------------------------------------
+// Below lg the rail follows the record in DOM order, and the rail's own padding
+// is reduced so a 320px screen keeps a usable measure.
+@include media-breakpoint-down(lg) {
+  .item-page .col-12.col-md-6 {
+    order: 0;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .item-page {
+    padding-block: var(--dare-spacing-5) var(--dare-spacing-7);
+  }
+
+  .item-page .col-12.col-md-4 {
+    padding: var(--dare-spacing-4);
+  }
+}
